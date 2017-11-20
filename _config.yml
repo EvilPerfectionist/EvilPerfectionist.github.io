@@ -84,7 +84,7 @@ theme: Miccall
 deploy:
   type: git
   repo: https://github.com/EvilPerfectionist/EvilPerfectionist.github.io.git
-  branch: hexo
+  branch: master
 
   #Plugins
 
