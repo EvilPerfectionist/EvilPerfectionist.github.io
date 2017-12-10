@@ -12,292 +12,124 @@ thumbnail: "http://ox8ixvjau.bkt.clouddn.com/blog/171210/9jAdD15e9i.jpg"
 
 <font size=4 face="微软雅黑">
 
-This year our team will participate in a robot competition,Robomaster.Instead of taking charge of mechanisms,I am trying to learn coding and automatic control.Recently,I am learning C++ and OpenCV.And I will take notes and write some blogs to summarize the knowledge I have learned.
-
-<strong><font color=DeepPink>When you analyze the codes, the most important thing is to separate them into different parts according to the functions. And then annotate the last part or sentence. Next, analyze the parameters in them. They will take you back to the other parts. Then,you will grasp the structure of the codes and gradually understand all of them . So, remember this method and use it. </font></strong>
+I analyze that the first step of my work is to split the images. [<font color=cyan>I follow this tutorial to learn color spaces.</font>](https://www.learnopencv.com/color-spaces-in-opencv-cpp-python/).The example and method is wonderful and allow me to fully understand how to choose the best color spaces.
 
 </font>
 
-## <font color=red><center> Content </center></font> ##
+## <font color=red><center>  Four Color Spaces </center></font> ##
 
+<font size=4 face="微软雅黑">
+
+Four color spaces are introduced. They are BGR, HSV, LAB and YCrCb respectively. There are certain formulas used to transform one color space into another. [<font color=cyan>You can access them from this website.</font>](https://docs.opencv.org/2.4/modules/imgproc/doc/miscellaneous_transformations.html) We choose them depending on their properties. So let us focus on their properties first.
+
+<Strong><font color=tomato>The RGB Color Space:</font></strong>
+
+![mark](http://ox8ixvjau.bkt.clouddn.com/blog/171210/EmHIDA3cea.png?imageslim)
+1. The three channels(B, G, R) are correlated by the amount of light hitting the surface. In RGB color space the color information is separated into three channels but the same three channels also encode brightness information.
+2. significant perceptual non-uniformity(Even with our eyes we can see the clear difference between indoor and outdoor B, G, R channels)
+3. mixing of chrominance ( Color related information ) and luminance ( Intensity related information ) data
+
+<Strong><font color=tomato>The LAB Color Space:</font></strong>
+
+![mark](http://ox8ixvjau.bkt.clouddn.com/blog/171210/L1eFd94dmh.png?imageslim)
+1. Different from RGB Color Space, LAB only have two channels encoding color. Let me introduce the meaning of different channels first:
+	1. L-Lightness(Intensity)
+	2. A-color component ranging from Green to Magenta
+	3. B-color component ranging from Blue to Yellow
+
+So, the L channel is independent of color information and encodes brightness only. The other two channels encode color.
+2. Perceptually uniform color space which approximates how we perceive color.(We can not use our eyes to see clear difference between indoor and outdoor A, B channels which encodes color.)
+3. It is pretty clear from the figure that the change in illumination has mostly affected the L component.
+
+<Strong><font color=tomato>The YCrCb Color Space:</font></strong>
+
+![mark](http://ox8ixvjau.bkt.clouddn.com/blog/171210/hH2fJf2hh3.png?imageslim)
+1. The YCrCb color space is derived from the RGB color space and has the following three components
+	1. Y-Luminance or Luma component obtained from RGB after gamma correction.
+	2. Cr = R – Y ( how far is the red component from Luma ).
+	3. Cb = B – Y ( how far is the blue component from Luma ).
+2. Similar observations as LAB can be made for Intensity and color components with regard to Illumination changes
+3. White has undergone change in all 3 components
+
+<Strong><font color=tomato>The HSV Color Space:</font></strong>
+
+![mark](http://ox8ixvjau.bkt.clouddn.com/blog/171211/J0alJ27GbE.png?imageslim)
+1. The HSV color space has the following three components
+	1. H-Hue ( Dominant Wavelength )
+	2. Saturation ( Purity / shades of the color )
+	3. Value ( Intensity )
+2. The H Component is very similar in both the images which indicates the color information is intact even under illumination changes.
+3. The S component is also very similar in both images.
+4. The V Component captures the amount of light falling on it thus it changes due to illumination changes.
+
+</font>
+
+## <font color=Violet><center> How to Choose Color Spaces </center></font> ##
+
+<font size=4 face="微软雅黑">
+
+I run the code written by Satya Mallick. He built a interactive GUI to detect the color of the pixels in the images. You can obtain the values of different colors through this simple GUI. The next step is to extract certain colors from the cube. Still, he wrote a simple software which has Trackbars on the windows. Since each color space can be split into three particular channels, the author set up thresholds(the maximum and minimum values of the channels) for each channel and used the functions inRange and bitwise_and to extract the specific color. You can see the description of the inRange function [<font color=cyan>here</font>](https://docs.opencv.org/2.4/modules/core/doc/operations_on_arrays.html?highlight=inrange#inrange) and bitwise_and function [<font color=cyan>here.</font>](https://docs.opencv.org/2.4/modules/core/doc/operations_on_arrays.html#bitwise-and) <font color=Violet>I got stuck here for a while since I ignore the fact that the value is 8 bit rather than 1 bit which means that it ranges from 00000000 to 11111111. While doing & and ^ operation, every 8 bit joins in the operation.</font>
+
+This method seems very great. But it is still hard to find the suitable thresholds manually. Still, there is a problem that even if you have found the best thresholds with all the pictures you have, it still be possible to fail while dealing with another image. So the author used another approach which is better. Let us analyze the code first.
+
+The code block of interactive GUI:
+
+Let us go into the main function first.
 ```cpp
-#include <opencv2/opencv.hpp>
-#include <opencv2/imgproc/imgproc.hpp>
-#include <opencv2/highgui/highgui.hpp>
-#include <iostream>
-
-using namespace cv;
-using namespace std;
-
-
-#define T_ANGLE_THRE 10
-#define T_SIZE_THRE 5
-
-
-void BrightAdjust(IplImage* src, IplImage* dst,
-	double dContrast, double dBright)
+int main( int argc, const char** argv )
 {
-	int nVal;
+    // filename
+    // Read the input image
+    int image_number = 0;
+    int nImages = 10;
 
-	unsigned char* SrcData = (unsigned char*)src->imageData;
-	unsigned char* DstData = (unsigned char*)dst->imageData;
-	int step = src->widthStep / sizeof(unsigned char) / 3;
+    if(argc > 1)
+        nImages = atoi(argv[1]);
 
-	for (int nI = 0; nI<src->height; nI++)
-	{
-		for (int nJ = 0; nJ <src->width; nJ++)
-		{
-			for (int nK = 0; nK < 3; nK++)
-			{
-				nVal = (int)(dContrast * SrcData[(nI*step + nJ) * 3 + nK] + dBright);
-				if (nVal < 0)
-					nVal = 0;
-				if (nVal > 255)
-					nVal = 255;
-				DstData[(nI*step + nJ) * 3 + nK] = nVal;
-			}
-		}
-	}
-}
+    char filename[20];
+    sprintf_s(filename,"images/rub%02d.jpg",image_number%nImages);
+    img = imread(filename);
+    // Resize the image to 400x400
+    Size rsize(400,400);
+    resize(img,img,rsize);
 
-void GetDiffImage(IplImage* src1, IplImage* src2, IplImage* dst, int nThre)
-{
-	unsigned char* SrcData1 = (unsigned char*)src1->imageData;
-	unsigned char* SrcData2 = (unsigned char*)src2->imageData;
-	unsigned char* DstData = (unsigned char*)dst->imageData;
-	int step = src1->widthStep / sizeof(unsigned char);
+    if(img.empty())
+    {
+        return -1;
+    }
 
-	for (int nI = 0; nI<src1->height; nI++)
-	{
-		for (int nJ = 0; nJ <src1->width; nJ++)
-		{
-			if (SrcData1[nI*step + nJ] - SrcData2[nI*step + nJ]> nThre)
-			{
-				DstData[nI*step + nJ] = 255;
-			}
-			else
-			{
-				DstData[nI*step + nJ] = 0;
-			}
-		}
-	}
-}
+    // Create an empty window
+    namedWindow("PRESS P for Previous, N for Next Image", WINDOW_AUTOSIZE);   
+    // Create a callback function for any event on the mouse
+    setMouseCallback( "PRESS P for Previous, N for Next Image", onMouse );
 
-int main()
-{
-	IplImage* pFrame0 = cvLoadImage("6.jpg");
-
-	CvSize pImgSize;
-	CvBox2D s;
-	vector<CvBox2D> vEllipse;
-	vector<CvBox2D> vRlt;
-	vector<CvBox2D> vArmor;
-	CvScalar sl;
-	bool bFlag = false;
-	CvSeq *pContour = NULL;
-	CvMemStorage *pStorage = cvCreateMemStorage(0);
-
-	pImgSize = cvGetSize(pFrame0);
-
-	IplImage *pRawImg = cvCreateImage(pImgSize, IPL_DEPTH_8U, 3);
-
-	IplImage* pGrayImage = cvCreateImage(pImgSize, IPL_DEPTH_8U, 1);
-	IplImage* pRImage = cvCreateImage(pImgSize, IPL_DEPTH_8U, 1);
-	IplImage* pGImage = cvCreateImage(pImgSize, IPL_DEPTH_8U, 1);
-	IplImage *pBImage = cvCreateImage(pImgSize, IPL_DEPTH_8U, 1);
-	IplImage *pBinary = cvCreateImage(pImgSize, IPL_DEPTH_8U, 1);
-	IplImage *pRlt = cvCreateImage(pImgSize, IPL_DEPTH_8U, 1);
-
-	CvSeq* lines = NULL;
-	CvMemStorage* storage = cvCreateMemStorage(0);
-	while (1)
-	{
-		if (pFrame0)
-		{
-			BrightAdjust(pFrame0, pRawImg, 1, -120);
-			cvSplit(pRawImg, pBImage, pGImage, pRImage, NULL);
-
-			GetDiffImage(pRImage, pGImage, pBinary, 25);
-			cvErode(pBinary, pGrayImage, NULL, 1);
-			cvDilate(pGrayImage, pRlt, NULL, 3);
-
-			cvFindContours(pRlt, pStorage, &pContour, sizeof(CvContour), CV_RETR_CCOMP, CV_CHAIN_APPROX_SIMPLE);
-			for (; pContour != NULL; pContour = pContour->h_next)
-			{
-				if (pContour->total > 10)
-				{
-					bFlag = true;
-					s = cvFitEllipse2(pContour);
-
-					for (int nI = 0; nI < 5; nI++)
-					{
-						for (int nJ = 0; nJ < 5; nJ++)
-						{
-							if (s.center.y - 2 + nJ > 0 && s.center.y - 2 + nJ < 480 && s.center.x - 2 + nI > 0 && s.center.x - 2 + nI <  640)
-							{
-								sl = cvGet2D(pFrame0, (int)(s.center.y - 2 + nJ), (int)(s.center.x - 2 + nI));
-								if (sl.val[0] < 200 || sl.val[1] < 200 || sl.val[2] < 200)
-									bFlag = false;
-							}
-						}
-					}
-					if (bFlag)
-					{
-						vEllipse.push_back(s);
-						cvEllipseBox(pFrame0, s, CV_RGB(255, 0, 0), 2, 8, 0);
-					}
-				}
-
-			}
-			cvShowImage("2", pFrame0);
-			cvShowImage("3", pRawImg);
-			cvShowImage("4", pBinary);
-			cvShowImage("5", pGrayImage);
-			cvShowImage("6", pRlt);
-			cvWaitKey(0);
-		}
-	}
-	return 0;
+    imshow( "PRESS P for Previous, N for Next Image", img );
+    while(1)
+    {
+		imshow("PRESS P for Previous, N for Next Image", img);
+        char k = waitKey(30) & 0xFF;
+        if (k == 27)
+            break;
+        //Check next image in the folder
+        if (k =='n')
+        {
+            image_number++;
+            sprintf_s(filename,"images/rub%02d.jpg",image_number%nImages);
+            img = imread(filename);
+            resize(img,img,rsize);
+        }
+        //Check previous image in he folder
+        else if (k =='p')
+        {
+            image_number--;
+            sprintf_s(filename,"images/rub%02d.jpg",image_number%nImages);
+            img = imread(filename);
+            resize(img,img,rsize);
+        }
+    }
+    return 0;
 }
 ```
+This 
 
-<center>
-{% qnimg 1.jpg %}
-</center>
-
-### <center> This is the picture I want to detect. </center> ###
-
-<center>
-{% qnimg 2.jpg %}
-</center>
-
-### <center> This is the dectected picture. </center> ###
-
-
-```cpp
-cvEllipseBox(pFrame0, s, CV_RGB(255, 0, 0), 2, 8, 0);
-```
-
-This sentence turn the former to the latter.So,I begin my analysis from here.This function is used to draw elliptic arc or fill an ellipse sector.[<font color=cyan>You can click here to see it</font>](http://docs.opencv.org/2.4/modules/core/doc/drawing_functions.html).I have changed the parameters to observe its change.
-
-The fourth parameter which is given as '2' represents the thickness of the ellipse arc outline, <font color=red>if positive</font>.Otherwise, this indicates that a filled ellipse sector is to be drawn.In other words, if the parameter is setted>0(positive),a outline will be shown.While the parameter is setted<0,a filled ellipse outline will be shown.
-
-The third parameter is color,There are two functions,CV_RGB(<font color=red>R,G,B</font>) and cvScalar(<font color=red>B,G,R</font>).In this case,namely CV_RGB(255, 0, 0), it means complete red.<font color=LawnGreen >And two functions are connected with each other by #define</font>.
-
-The second parameter is box. I can not clearly understand it right now.But this parameter indicates that the function draws <font color=GreenYellow > an ellipse inscribed in the rotated rectangle </font>.It can be understood like this:
-<center>
-{% qnimg inscribed.jpg %}
-</center>
-
-So,we can notice that 's' is an important parameter.I decide to begin with it.After define it with this code:
-```cpp
-CvBox2D s;
-```
-An important sentence should be paid attention to:
-```cpp
-s = cvFitEllipse2(pContour);
-```
-The function calculates the ellipse that fits a set of 2D points best of all. It returns the rotated rectangle in which the ellipse is inscribed.And then we look downward:
-```cpp
-for (int nI = 0; nI < 5; nI++)
-{
-	for (int nJ = 0; nJ < 5; nJ++)
-	{
-		if (s.center.y - 2 + nJ > 0 && s.center.y - 2 + nJ < 480 && s.center.x - 2 + nI > 0 && s.center.x - 2 + nI <  640)
-		{
-			sl = cvGet2D(pFrame0, (int)(s.center.y - 2 + nJ), (int)(s.center.x - 2 + nI));
-			if (sl.val[0] < 200 || sl.val[1] < 200 || sl.val[2] < 200)
-			bFlag = false;
-		}
-	}
-}
-```
-We can see 's.center.y' and 's.center.x' in these codes.So 'CvBox2D' must be a struct.And one of its methods is 'center'.Of course, the function of 'center' must be a struct as well,it has two methods,'x' and 'y'.<font color=LawnGreen >So,'s.center.y' represents the y coordinates. </font>
-
-These codes detect the ellipses which beyond the picture and delete them.Besides,they also detect the color surrounding the center of every ellipses.If they are not suitable,the bFlag will be equivalent to 'false'.
-
-'sl' is defined above:
-```cpp
-CvScalar sl;
-```
-We should notice that the type 'CvScalar' is different from the type 'cvScalar' which is mentioned above.It does not relate to color at all.And it has one method 'val'.
-
-<font color=red>Besides,I want to say that 'int n[6];' is allowed,which means it defines an array which has 6 numbers.</font>
-
-Now,we completely deal with the variable 's'.And next one is 'pContour' and 'pFrame0'.
-```cpp
-CvSize pImgSize;
-pImgSize = cvGetSize(pFrame0);
-```
-'CvSize' means the size of a rectangle or an image.
-
-'cvGetSize' returns number of rows and number of columns.
-
-```cpp
-	IplImage *pRawImg = cvCreateImage(pImgSize, IPL_DEPTH_8U, 3);
-	IplImage* pGrayImage = cvCreateImage(pImgSize, IPL_DEPTH_8U, 1);
-	IplImage* pRImage = cvCreateImage(pImgSize, IPL_DEPTH_8U, 1);
-	IplImage* pGImage = cvCreateImage(pImgSize, IPL_DEPTH_8U, 1);
-	IplImage *pBImage = cvCreateImage(pImgSize, IPL_DEPTH_8U, 1);
-	IplImage *pBinary = cvCreateImage(pImgSize, IPL_DEPTH_8U, 1);
-	IplImage *pRlt = cvCreateImage(pImgSize, IPL_DEPTH_8U, 1);
-```
-IplImage *xxx = cvCreateImage(xxx, IPL_DEPTH_8U, xxx);can be considered as a particular usage.All these codes are used to create a new image memory block and store the future results.
-
-<font color=red>So,in this step we create a lot of empty arrays.They can be used for storage of the images which have been transformed.</font>
-
-```cpp
-BrightAdjust(pFrame0, pRawImg, 1, -120);
-```
-This function copys one image array(pFrame0) to another one(pRawImg) which also has three channels, but change how bright the picture is.Therefore,you can change the value of '-120' to adjust the brightness.For example:
-<center>
-{% qnimg 3.jpg %}
-</center>
-
-```cpp
-cvSplit(pRawImg, pBImage, pGImage, pRImage, NULL);
-```
-Then we use 'cvSplit' to spilt the image into four channels,the first parameter represents the image,and the next three parameter represent the B,G,R channel.I do not know which channel the fourth parameter represents.The default setting of it is 'NULL'.
-
-```cpp
-GetDiffImage(pRImage, pGImage, pBinary, 25);
-cvErode(pBinary, pGrayImage, NULL, 1);
-cvDilate(pGrayImage, pRlt, NULL, 3);
-```
-
-'GetDiffImage' compare the R channel with the G channel.The place where the difference is larger than 25 will be setted as 'white' and the rest will be setted as 'black':
-
-<center>
-{% qnimg 4.jpg %}
-</center>
-
-
-'cvErode' and 'cvDilate' are functions to erode and dilate the pictures:
-
-<center>
-{% qnimg 5.jpg %}
-</center>
-
-```cpp
-cvFindContours(pRlt, pStorage, &pContour, sizeof(CvContour), CV_RETR_CCOMP, CV_CHAIN_APPROX_SIMPLE);
-```
-This function is to find contours in a binary image.[<font color=cyan>More information can be seen here</font>](http://docs.opencv.org/2.4/modules/imgproc/doc/structural_analysis_and_shape_descriptors.html).
-
-```cpp
-for (; pContour != NULL; pContour = pContour->h_next)
-```
-The difference of <font color=GreenYellow >h_next</font> and <font color=GreenYellow >v_next</font> [<font color=cyan>can be seen here</font>](http://jmpelletier.com/a-simple-opencv-tutorial/).
-
-<center>
-{% qnimg Contours.gif %}
-</center>
-
-```cpp
-CvSeq *pContour = NULL;
-if (pContour->total > 10)
-```
-
-Total is one of the methods of 'CvSeq'.It represents the total number of elements.
-
-
-## <font color=yellowish><center>The End</center> ##
+</font>
