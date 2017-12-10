@@ -5,7 +5,7 @@ categories:
 - OpenCV
 tags:
 - OpenCV
-thumbnail: "{% qnimg 1.png %}"
+thumbnail: "http://ox8ixvjau.bkt.clouddn.com/images/0.jpg"
 ---
 
 ## <font color=#0099ff><center> Preface </center></font> ##
