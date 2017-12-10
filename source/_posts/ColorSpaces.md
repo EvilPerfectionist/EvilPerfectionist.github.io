@@ -5,8 +5,7 @@ categories:
 - OpenCV
 tags:
 - OpenCV
-thumbnail:
-"http://ox8ixvjau.bkt.clouddn.com/blog/171210/9jAdD15e9i.jpg"
+thumbnail: "http://ox8ixvjau.bkt.clouddn.com/blog/171210/9jAdD15e9i.jpg"
 ---
 
 ## <font color=#0099ff><center> Preface </center></font> ##
