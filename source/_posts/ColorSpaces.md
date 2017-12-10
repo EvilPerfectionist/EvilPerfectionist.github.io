@@ -1,6 +1,6 @@
 ---
 title: ColorSpaces
-date: 2017/10/2 10:21:00
+date: 2017/12/11 10:21:00
 categories:
 - OpenCV
 tags:
@@ -130,6 +130,27 @@ int main( int argc, const char** argv )
     return 0;
 }
 ```
-This 
+This block of codes mainly implement three effects.
+1. Load the images and resize them.
+2. Show the image.
+3. Press P for the previous image, N for the next image and Esc to quit.
+
+Let separate the codes into three parts according to their effects.
+
+```cpp
+int image_number = 0;
+int nImages = 10;
+char filename[20];
+sprintf_s(filename,"images/rub%02d.jpg",image_number%nImages);
+img = imread(filename);
+// Resize the image to 400x400
+Size rsize(400,400);
+resize(img,img,rsize);
+```
+There is only one line needed to explain.
+```cpp
+sprintf_s(filename,"images/rub%02d.jpg",image_number%nImages);
+```
+The function sprintf_s is similar to the function sprintf. You can learn the parameters of this function from [<font color=cyan>this website.</font>](http://www.cplusplus.com/reference/cstdio/sprintf/). I also have an example from another post.
 
 </font>
