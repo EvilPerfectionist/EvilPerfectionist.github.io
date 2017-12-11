@@ -20,7 +20,7 @@ This post includes some simple examples of the functions I meet while learning C
 
 
 
-####<Strong><font color=tomato>Function Sprintf </font></strong>
+#### <Strong><font color=tomato>Function Sprintf </font></strong>
 
 ```cpp
 #include <stdio.h>
@@ -37,7 +37,7 @@ The output is: [5 plus 3 is 8] is a string 13 chars long
 
 So what the function does is to write the content of the second parameter into the string(first parameter).
 
-####<Strong><font color=tomato>Method sort() </font></strong>
+#### <Strong><font color=tomato>Method sort() </font></strong>
 
 ```python
 a = [5, 2, 3, 1, 4]
@@ -46,7 +46,7 @@ print (a)
 ```
 The output is [1, 2, 3, 4, 5].
 
-####<Strong><font color=tomato>Method plt.hist2d </font></strong>
+#### <Strong><font color=tomato>Method plt.hist2d </font></strong>
 
 ```python
 from matplotlib.colors import LogNorm
@@ -81,7 +81,7 @@ The result:
 
 In this case, the parameter bins stands for the number of bins for the two dimensions. The parameter norm=LogNorm() means that the number in the colorbar in the right will be calculated in logarithm. In other words, the data was normalized via log10.
 
-####<Strong><font color=tomato>Syntax if not </font></strong>
+#### <Strong><font color=tomato>Syntax if not </font></strong>
 
 ```python
 a = 0
