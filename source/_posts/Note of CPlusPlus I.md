@@ -12,17 +12,15 @@ thumbnail: "http://ox8ixvjau.bkt.clouddn.com/blog/171211/ecHEm8cK5l.jpg"
 
 ## <font color=#0099ff><center> Preface </center></font> ##
 
-<font size=4>
 
 This post includes some simple examples of the functions I meet while learning Color Spaces. You can see the post [<font color=cyan>here.</font>](https://evilperfectionist.github.io/ColorSpaces/)
 
-</font>
 
 ## <font color=red><center> Content </center></font> ##
 
-<font size=4>
 
-<Strong><font color=tomato>Function Sprintf </font></strong>
+
+####<Strong><font color=tomato>Function Sprintf </font></strong>
 
 ```cpp
 #include <stdio.h>
@@ -39,7 +37,7 @@ The output is: [5 plus 3 is 8] is a string 13 chars long
 
 So what the function does is to write the content of the second parameter into the string(first parameter).
 
-<Strong><font color=tomato>Method sort() </font></strong>
+####<Strong><font color=tomato>Method sort() </font></strong>
 
 ```python
 a = [5, 2, 3, 1, 4]
@@ -48,7 +46,7 @@ print (a)
 ```
 The output is [1, 2, 3, 4, 5].
 
-<Strong><font color=tomato>Method plt.hist2d </font></strong>
+####<Strong><font color=tomato>Method plt.hist2d </font></strong>
 
 ```python
 from matplotlib.colors import LogNorm
@@ -83,7 +81,7 @@ The result:
 
 In this case, the parameter bins stands for the number of bins for the two dimensions. The parameter norm=LogNorm() means that the number in the colorbar in the right will be calculated in logarithm. In other words, the data was normalized via log10.
 
-<Strong><font color=tomato>Syntax if not </font></strong>
+####<Strong><font color=tomato>Syntax if not </font></strong>
 
 ```python
 a = 0
@@ -103,6 +101,6 @@ print(x)
 ```
 The result will be [4, 5, 6]
 
-</font>
+
 
 ## <font color=yellowish><center>The End</center> ##
