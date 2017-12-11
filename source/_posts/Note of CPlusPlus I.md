@@ -7,7 +7,7 @@ categories:
 tags:
 - OpenCV
 - C++
-thumbnail: "http://ox8ixvjau.bkt.clouddn.com/blog/171211/ecHEm8cK5l.jpg)"
+thumbnail: "http://ox8ixvjau.bkt.clouddn.com/blog/171211/ecHEm8cK5l.jpg"
 ---
 
 ## <font color=#0099ff><center> Preface </center></font> ##
