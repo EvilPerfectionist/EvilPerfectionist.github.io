@@ -26,7 +26,6 @@ This post includes some simple examples of the functions I meet while learning C
 
 ```cpp
 #include <stdio.h>
-
 int main ()
 {
   char buffer [50];
@@ -36,8 +35,6 @@ int main ()
   return 0;
 }
 ```
-
-
 The output is: [5 plus 3 is 8] is a string 13 chars long
 
 So what the function does is to write the content of the second parameter into the string(first parameter).
@@ -105,6 +102,7 @@ if not a:
 print(x)
 ```
 The result will be [4, 5, 6]
+
 </font>
 
 ## <font color=yellowish><center>The End</center> ##
