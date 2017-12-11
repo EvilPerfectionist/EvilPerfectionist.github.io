@@ -270,9 +270,9 @@ This block of codes mainly implement three effects.
         Vec3b labPixel(lab.at<Vec3b>(0,0));
 ```
 Vec3b intensity = img.at<Vec3b>(y, x); [<font color=cyan>can be used to acquire the intensity value of the pixel.</font>](https://docs.opencv.org/2.4.13.2/doc/user_guide/ug_mat.html) According to the RGB image,
-- uchar blue = intensity.val[0];
-- uchar green = intensity.val[1];
-- uchar red = intensity.val[2];
+1. uchar blue = intensity.val[0];
+2. uchar green = intensity.val[1];
+3. uchar red = intensity.val[2];
 
  If you want to go deep into the source with F12 and understand the syntax of this code and Mat3b, you need to know about some basic grammar of C++, such as Class and Templates.
 ```cpp
