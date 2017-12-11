@@ -134,7 +134,6 @@ int main( int argc, const char** argv )
 }
 ```
 <font size=4 face="微软雅黑">
-
 This block of codes mainly implement three effects.
 1. Load the images and resize them.
 2. Show the image.
@@ -252,7 +251,6 @@ void onMouse( int event, int x, int y, int flags, void* userdata )
 }
 ```
 <font size=4 face="微软雅黑">
-
 This block of codes mainly implement three effects.
 1. Obtain the value of pixel and convert it into different color spaces.
 2. Add and show the text.
@@ -280,7 +278,6 @@ This block of codes mainly implement three effects.
         Vec3b labPixel(lab.at<Vec3b>(0,0));
 ```
 <font size=4 face="微软雅黑">
-
 Vec3b intensity = img.at<Vec3b>(y, x); [<font color=cyan>can be used to acquire the intensity value of the pixel.</font>](https://docs.opencv.org/2.4.13.2/doc/user_guide/ug_mat.html) According to the RGB image,
 1. uchar blue = intensity.val[0];
 2. uchar green = intensity.val[1];
