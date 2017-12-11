@@ -131,7 +131,9 @@ int main( int argc, const char** argv )
     return 0;
 }
 ```
+
 This block of codes mainly implement three effects.
+
 1. Load the images and resize them.
 2. Show the image.
 3. Press P for the previous image, N for the next image and Esc to quit.
