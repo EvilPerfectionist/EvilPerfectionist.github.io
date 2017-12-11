@@ -10,7 +10,7 @@ thumbnail: "http://ox8ixvjau.bkt.clouddn.com/blog/171210/9jAdD15e9i.jpg"
 
 ## <font color=#0099ff><center> Preface </center></font> ##
 
-<font size=4 face="微软雅黑">
+<font face="微软雅黑">
 
 I analyze that the first step of my work is to split the images. [<font color=cyan>I follow this tutorial to learn color spaces.</font>](https://www.learnopencv.com/color-spaces-in-opencv-cpp-python/).The example and method is wonderful and allow me to fully understand how to choose the best color spaces. You can get the source code from my Github Account.
 
@@ -18,7 +18,7 @@ I analyze that the first step of my work is to split the images. [<font color=cy
 
 ## <font color=red><center>  Four Color Spaces </center></font> ##
 
-<font size=4 face="微软雅黑">
+<font face="微软雅黑">
 
 Four color spaces are introduced. They are BGR, HSV, LAB and YCrCb respectively. There are certain formulas used to transform one color space into another. [<font color=cyan>You can access them from this website.</font>](https://docs.opencv.org/2.4/modules/imgproc/doc/miscellaneous_transformations.html) We choose them depending on their properties. So let us focus on their properties first.
 
@@ -66,7 +66,7 @@ So, the L channel is independent of color information and encodes brightness onl
 
 ## <font color=Violet><center> How to Choose Color Spaces </center></font> ##
 
-<font size=4 face="微软雅黑">
+<font face="微软雅黑">
 
 I run the code written by Satya Mallick. He built a interactive GUI to detect the color of the pixels in the images. You can obtain the values of different colors through this simple GUI. The next step is to extract certain colors from the cube. Still, he wrote a simple software which has Trackbars on the windows. Since each color space can be split into three particular channels, the author set up thresholds(the maximum and minimum values of the channels) for each channel and used the functions inRange and bitwise_and to extract the specific color. You can see the description of the inRange function [<font color=cyan>here</font>](https://docs.opencv.org/2.4/modules/core/doc/operations_on_arrays.html?highlight=inrange#inrange) and bitwise_and function [<font color=cyan>here.</font>](https://docs.opencv.org/2.4/modules/core/doc/operations_on_arrays.html#bitwise-and) <font color=Violet>I got stuck here for a while since I ignore the fact that the value is 8 bit rather than 1 bit which means that it ranges from 00000000 to 11111111. While doing & and ^ operation, every 8 bit joins in the operation.</font>
 
@@ -133,7 +133,7 @@ int main( int argc, const char** argv )
     return 0;
 }
 ```
-<font size=4 face="微软雅黑">
+<font face="微软雅黑">
 This block of codes mainly implement three effects.
 1. Load the images and resize them.
 2. Show the image.
@@ -250,7 +250,7 @@ void onMouse( int event, int x, int y, int flags, void* userdata )
     }
 }
 ```
-<font size=4 face="微软雅黑">
+<font face="微软雅黑">
 This block of codes mainly implement three effects.
 1. Obtain the value of pixel and convert it into different color spaces.
 2. Add and show the text.
@@ -277,7 +277,7 @@ This block of codes mainly implement three effects.
         Vec3b ycbPixel(ycb.at<Vec3b>(0,0));
         Vec3b labPixel(lab.at<Vec3b>(0,0));
 ```
-<font size=4 face="微软雅黑">
+<font face="微软雅黑">
 Vec3b intensity = img.at<Vec3b>(y, x); [<font color=cyan>can be used to acquire the intensity value of the pixel.</font>](https://docs.opencv.org/2.4.13.2/doc/user_guide/ug_mat.html) According to the RGB image,
 1. uchar blue = intensity.val[0];
 2. uchar green = intensity.val[1];
@@ -286,7 +286,6 @@ Vec3b intensity = img.at<Vec3b>(y, x); [<font color=cyan>can be used to acquire 
 If you want to go deep into the source with F12 and understand the syntax of this code and Mat3b, you need to know about some basic grammar of C++, such as Class and Templates.
 </font>
 
-<font size=4 face="微软雅黑">
 
 ```cpp
 cvtColor(bgr, ycb, COLOR_BGR2YCrCb);
@@ -473,11 +472,10 @@ plt.hist2d is a little difficult to understand. [<font color=cyan>You can grasp 
 
 Also you can learn about the usage of "if not" syntax [<font color=cyan>here.</font>](https://evilperfectionist.github.io/Note%20of%20CPlusPlus%20I/l)
 
-</font>
 
 ## <font color=#00ff00><center> Conclusion </center></font> ##
 
-<font size=4 face="微软雅黑">
+<font face="微软雅黑">
 
 As the Illumination changes by a large amount, we can see that:
 
