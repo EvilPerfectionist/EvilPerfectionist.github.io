@@ -23,6 +23,7 @@ This post includes some simple examples of the functions I meet while learning C
 <font size=4>
 
 <Strong><font color=tomato>Function Sprintf </font></strong>
+
 ```cpp
 #include <stdio.h>
 
@@ -42,6 +43,7 @@ The output is: [5 plus 3 is 8] is a string 13 chars long
 So what the function does is to write the content of the second parameter into the string(first parameter).
 
 <Strong><font color=tomato>Method sort() </font></strong>
+
 ```python
 a = [5, 2, 3, 1, 4]
 a.sort()
@@ -50,6 +52,7 @@ print (a)
 The output is [1, 2, 3, 4, 5].
 
 <Strong><font color=tomato>Method plt.hist2d </font></strong>
+
 ```python
 from matplotlib.colors import LogNorm
 import matplotlib.pyplot as plt
@@ -60,7 +63,10 @@ plt.colorbar()
 plt.show()
 ```
 The result:
+
+<center>
 ![mark](http://ox8ixvjau.bkt.clouddn.com/blog/171211/dL2j5cmlKJ.png?imageslim)
+</center>
 
 ```python
 from matplotlib.colors import LogNorm
@@ -73,11 +79,15 @@ plt.colorbar()
 plt.show()
 ```
 The result:
+
+<center>
 ![mark](http://ox8ixvjau.bkt.clouddn.com/blog/171211/i8D2lhjh3e.png?imageslim)
+</center>
 
 In this case, the parameter bins stands for the number of bins for the two dimensions. The parameter norm=LogNorm() means that the number in the colorbar in the right will be calculated in logarithm. In other words, the data was normalized via log10.
 
 <Strong><font color=tomato>Syntax if not </font></strong>
+
 ```python
 a = 0
 x = [4, 5, 6]
@@ -86,6 +96,7 @@ if not a:
 print(x)
 ```
 The result will be [1, 2, 3]
+
 ```python
 a = 1
 x = [4, 5, 6]
