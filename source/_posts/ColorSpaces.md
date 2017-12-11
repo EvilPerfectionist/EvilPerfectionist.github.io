@@ -245,6 +245,7 @@ void onMouse( int event, int x, int y, int flags, void* userdata )
     }
 }
 ```
+
 This block of codes mainly implement three effects.
 1. Obtain the value of pixel and convert it into different color spaces.
 2. Add and show the text.
@@ -274,7 +275,8 @@ Vec3b intensity = img.at<Vec3b>(y, x); [<font color=cyan>can be used to acquire 
 2. uchar green = intensity.val[1];
 3. uchar red = intensity.val[2];
 
- If you want to go deep into the source with F12 and understand the syntax of this code and Mat3b, you need to know about some basic grammar of C++, such as Class and Templates.
+If you want to go deep into the source with F12 and understand the syntax of this code and Mat3b, you need to know about some basic grammar of C++, such as Class and Templates.
+
 ```cpp
 cvtColor(bgr, ycb, COLOR_BGR2YCrCb);
 cvtColor(bgr, hsv, COLOR_BGR2HSV);
