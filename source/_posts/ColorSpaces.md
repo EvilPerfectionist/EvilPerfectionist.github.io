@@ -44,23 +44,23 @@ So, the L channel is independent of color information and encodes brightness onl
 <Strong><font color=tomato>The YCrCb Color Space:</font></strong>
 
 ![mark](http://ox8ixvjau.bkt.clouddn.com/blog/171210/hH2fJf2hh3.png?imageslim)
-- The YCrCb color space is derived from the RGB color space and has the following three components
+1. The YCrCb color space is derived from the RGB color space and has the following three components
 	   - Y-Luminance or Luma component obtained from RGB after gamma correction.
 	   - Cr = R – Y ( how far is the red component from Luma ).
 	   - Cb = B – Y ( how far is the blue component from Luma ).
-- Similar observations as LAB can be made for Intensity and color components with regard to Illumination changes
-- White has undergone change in all 3 components
+2. Similar observations as LAB can be made for Intensity and color components with regard to Illumination changes
+3. White has undergone change in all 3 components
 
 <Strong><font color=tomato>The HSV Color Space:</font></strong>
 
 ![mark](http://ox8ixvjau.bkt.clouddn.com/blog/171211/J0alJ27GbE.png?imageslim)
-- The HSV color space has the following three components
+1. The HSV color space has the following three components
 	   - H-Hue ( Dominant Wavelength )
 	   -  Saturation ( Purity / shades of the color )
 	   - Value ( Intensity )
-- The H Component is very similar in both the images which indicates the color information is intact even under illumination changes.
-- The S component is also very similar in both images.
-- The V Component captures the amount of light falling on it thus it changes due to illumination changes.
+2. The H Component is very similar in both the images which indicates the color information is intact even under illumination changes.
+3. The S component is also very similar in both images.
+4. The V Component captures the amount of light falling on it thus it changes due to illumination changes.
 
 </font>
 
@@ -72,9 +72,10 @@ I run the code written by Satya Mallick. He built a interactive GUI to detect th
 
 This method seems very great. But it is still hard to find the suitable thresholds manually. Still, there is a problem that even if you have found the best thresholds with all the pictures you have, it still be possible to fail while dealing with another image. So the author used another approach which is better. Let us analyze the code first.
 
-###<font color= #ff3399 >The code block of interactive GUI:</font> ###
+### <font color= #ff3399 >The code block of interactive GUI:</font> ###
 
 #### <font color= #00FA9A >Let us go into the main function first.</font> ####
+
 ```cpp
 int main( int argc, const char** argv )
 {
@@ -131,9 +132,9 @@ int main( int argc, const char** argv )
 }
 ```
 This block of codes mainly implement three effects.
-- Load the images and resize them.
-- Show the image.
-- Press P for the previous image, N for the next image and Esc to quit.
+1. Load the images and resize them.
+2. Show the image.
+3. Press P for the previous image, N for the next image and Esc to quit.
 
 Let separate the codes into three parts according to their effects.
 
@@ -197,7 +198,7 @@ char k = waitKey(30) & 0xFF
 You can see the definition of waitKey [<font color=cyan>here.</font>](https://docs.opencv.org/2.4/modules/highgui/doc/user_interface.html?highlight=waitkey) However, you may be still confused about this line of code. You can see the pictures below as a reference.
 ![mark](http://ox8ixvjau.bkt.clouddn.com/blog/171211/H2BELh3Jbg.png?imageslim)
 
-#### <Strong><font color= #00FA9A >Then is the setMouseCallback function</font></strong> ####
+#### <font color= #00FA9A >Then is the setMouseCallback function</font> ####
 
 ```cpp
 void onMouse( int event, int x, int y, int flags, void* userdata )
@@ -245,9 +246,9 @@ void onMouse( int event, int x, int y, int flags, void* userdata )
 }
 ```
 This block of codes mainly implement three effects.
-- Obtain the value of pixel and convert it into different color spaces.
-- Add and show the text.
-- Combine and show the image.
+1. Obtain the value of pixel and convert it into different color spaces.
+2. Add and show the text.
+3. Combine and show the image.
 
 <Strong><font color=tomato>Obtain the value of pixel and convert it into different color spaces.</font></strong>
 
@@ -312,10 +313,10 @@ imshow("PRESS P for Previous, N for Next Image", combinedResult);
 Just merge two images into one. If you successfully run the codes, you will get a interactive GUI like this.
 ![mark](http://ox8ixvjau.bkt.clouddn.com/blog/171211/H4IFlBGcgd.png?imageslim)
 
-###<font color= #ff3399 >The code block of setting thresholds:</font> ###
+### <font color= #ff3399 >The code block of setting thresholds:</font> ###
 In this block of code, there is nothing I should explain in detail since the functions inRange and bitwise_and are mentioned already.
 
-###<font color= #ff3399 >The code block of DataAnalysis:</font> ###
+### <font color= #ff3399 >The code block of DataAnalysis:</font> ###
 
 This block of code are written in python. I will choose some specific functions to introduce.
 
@@ -467,10 +468,10 @@ Also you can learn about the usage of "if not" syntax [<font color=cyan>here.</f
 
 As the Illumination changes by a large amount, we can see that:
 
-- Ideally, we want to work with a color space with the most compact / concentrated density plot for color channels.(because when the color value is concentrated in a small region, we can use a small range of thresholds to extract it. And it is robust to other conditions as well.)
-- The density plots for RGB blow up drastically. This means that the variation in the values of the channels is very high and fixing a threshold is a big problem.
-- In HSV, since only the H component contains information about the absolute color. Thus, it becomes my first choice of color space since I can tweak just one knob ( H ) to specify a color as compared to 2 knobs in YCrCb ( Cr and Cb ) and LAB ( A and B ).(And as you can see, the value of H channel is concentrated in a small range, it is also an important feature of HSV)
-- Comparing the plots of YCrCb and LAB shows a higher level of compactness in case of LAB. So, next best choice for me becomes the LAB color space.
+1. Ideally, we want to work with a color space with the most compact / concentrated density plot for color channels.(because when the color value is concentrated in a small region, we can use a small range of thresholds to extract it. And it is robust to other conditions as well.)
+2. The density plots for RGB blow up drastically. This means that the variation in the values of the channels is very high and fixing a threshold is a big problem.
+3. In HSV, since only the H component contains information about the absolute color. Thus, it becomes my first choice of color space since I can tweak just one knob ( H ) to specify a color as compared to 2 knobs in YCrCb ( Cr and Cb ) and LAB ( A and B ).(And as you can see, the value of H channel is concentrated in a small range, it is also an important feature of HSV)
+4. Comparing the plots of YCrCb and LAB shows a higher level of compactness in case of LAB. So, next best choice for me becomes the LAB color space.
 
 </font>
 
