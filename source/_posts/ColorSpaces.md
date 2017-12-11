@@ -132,11 +132,14 @@ int main( int argc, const char** argv )
 }
 ```
 
-This block of codes mainly implement three effects.
+<font size=4 face="微软雅黑">
 
+This block of codes mainly implement three effects.
 1. Load the images and resize them.
 2. Show the image.
 3. Press P for the previous image, N for the next image and Esc to quit.
+
+</font>
 
 Let separate the codes into three parts according to their effects.
 
@@ -156,7 +159,7 @@ There is only one line needed to explain.
 ```cpp
 sprintf_s(filename,"images/rub%02d.jpg",image_number%nImages);
 ```
-The function sprintf_s is similar to the function sprintf. You can learn the parameters of this function from [<font color=cyan>this website.</font>](http://www.cplusplus.com/reference/cstdio/sprintf/). I also have an example from another post. [<font color=cyan>You have better understand it from this example.</font>](https://evilperfectionist.github.io/Note%20of%20CPlusPlus%20I/)<font color=Violet>%02d is derived from %d which you must be familiar with. So the value of %02d is replaced by the value of the third parameter(image_number%nImages). You may be confused about the % in the third parameter, but actually the % is the Modulus Operator. It returns the the remainder of an integer division. For example, 1%10 = 1, 3%10 =3, 5%2 = 1. </font>
+The function sprintf_s is similar to the function sprintf. You can learn the parameters of this function from [<font color=cyan>this website.</font>](http://www.cplusplus.com/reference/cstdio/sprintf/). I also have an example from another post. [<font color=cyan>You have better understand it from this example.</font>](https://evilperfectionist.github.io/Note%20of%20CPlusPlus%20I/)<font color=Violet>%02d is derived from %d which you must be familiar with. So the value of %02d is replaced by the value of the third parameter(image_number%nImages). You may be confused about the % in the third parameter, but actually the % is the Modulus Operator. It returns the remainder of an integer division. For example, 1%10 = 1, 3%10 =3, 5%2 = 1. </font>
 
 <Strong><font color=tomato>Show the image</font></strong>
 
