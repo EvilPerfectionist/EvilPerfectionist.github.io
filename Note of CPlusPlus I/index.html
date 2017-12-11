@@ -114,7 +114,20 @@
             </div>
             <!-- Post -->
             <div class="typo" style="padding: 3rem;">
-                <h2 id="Preface"><a href="#Preface" class="headerlink" title=" Preface "></a><font color="#0099ff"><center> Preface </center></font></h2><font size="4"><br><br>I analyze that the first step of my work is to split the images. <a href="https://www.learnopencv.com/color-spaces-in-opencv-cpp-python/" target="_blank" rel="noopener"><font color="cyan">I follow this tutorial to learn color spaces.</font></a>.The example and method is wonderful and allow me to fully understand how to choose the best color spaces.<br><br></font>
+                <h2 id="Preface"><a href="#Preface" class="headerlink" title=" Preface "></a><font color="#0099ff"><center> Preface </center></font></h2><font size="4"><br><br>This post includes some simple examples of the functions I meet while learning Color Spaces. You can see the post <a href="https://evilperfectionist.github.io/ColorSpaces/" target="_blank" rel="noopener"><font color="cyan">here.</font></a><br><br></font>
+
+<h2 id="Content"><a href="#Content" class="headerlink" title=" Content "></a><font color="red"><center> Content </center></font></h2><pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
+
+<span class="token keyword">int</span> <span class="token function">main</span> <span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">{</span>
+  <span class="token keyword">char</span> buffer <span class="token punctuation">[</span><span class="token number">50</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+  <span class="token keyword">int</span> n<span class="token punctuation">,</span> a<span class="token operator">=</span><span class="token number">5</span><span class="token punctuation">,</span> b<span class="token operator">=</span><span class="token number">3</span><span class="token punctuation">;</span>
+  n<span class="token operator">=</span><span class="token function">sprintf</span> <span class="token punctuation">(</span>buffer<span class="token punctuation">,</span> <span class="token string">"%d plus %d is %d"</span><span class="token punctuation">,</span> a<span class="token punctuation">,</span> b<span class="token punctuation">,</span> a<span class="token operator">+</span>b<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">printf</span> <span class="token punctuation">(</span><span class="token string">"[%s] is a string %d chars long\n"</span><span class="token punctuation">,</span>buffer<span class="token punctuation">,</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<font size="4"><br><br>The output is: [5 plus 3 is 8] is a string 13 chars long<br><br>So what the function does is to write the content of the second parameter into the string(first parameter).<br><br></font>
 
             </div>
 
