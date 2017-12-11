@@ -284,8 +284,9 @@ Vec3b intensity = img.at<Vec3b>(y, x); [<font color=cyan>can be used to acquire 
 3. uchar red = intensity.val[2];
 
 If you want to go deep into the source with F12 and understand the syntax of this code and Mat3b, you need to know about some basic grammar of C++, such as Class and Templates.
-
 </font>
+
+<font size=4 face="微软雅黑">
 
 ```cpp
 cvtColor(bgr, ycb, COLOR_BGR2YCrCb);
