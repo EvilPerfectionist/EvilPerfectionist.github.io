@@ -301,15 +301,14 @@ Size <span class="token function">rsize</span><span class="token punctuation">(<
 <ol>
 <li>uchar blue = intensity.val[0];</li>
 <li>uchar green = intensity.val[1];</li>
-<li><p>uchar red = intensity.val[2];</p>
+<li>uchar red = intensity.val[2];</li>
+</ol>
 <p>If you want to go deep into the source with F12 and understand the syntax of this code and Mat3b, you need to know about some basic grammar of C++, such as Class and Templates.</p>
 <pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token function">cvtColor</span><span class="token punctuation">(</span>bgr<span class="token punctuation">,</span> ycb<span class="token punctuation">,</span> COLOR_BGR2YCrCb<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token function">cvtColor</span><span class="token punctuation">(</span>bgr<span class="token punctuation">,</span> hsv<span class="token punctuation">,</span> COLOR_BGR2HSV<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token function">cvtColor</span><span class="token punctuation">(</span>bgr<span class="token punctuation">,</span> lab<span class="token punctuation">,</span> COLOR_BGR2Lab<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p>You can use function cvtColor to convert RGB image or pixel into HSV, YCrCb, LAB one.</p>
-</li>
-</ol>
 <p><strong><font color="tomato">Add and show the text.</font></strong></p>
 <pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token comment" spellcheck="true">// Create an empty placeholder for displaying the values</span>
 placeholder <span class="token operator">=</span> Mat<span class="token operator">::</span><span class="token function">zeros</span><span class="token punctuation">(</span>img<span class="token punctuation">.</span>rows<span class="token punctuation">,</span><span class="token number">400</span><span class="token punctuation">,</span>CV_8UC3<span class="token punctuation">)</span><span class="token punctuation">;</span>
