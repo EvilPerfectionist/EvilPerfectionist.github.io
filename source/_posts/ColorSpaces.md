@@ -72,6 +72,8 @@ I run the code written by Satya Mallick. He built a interactive GUI to detect th
 
 This method seems very great. But it is still hard to find the suitable thresholds manually. Still, there is a problem that even if you have found the best thresholds with all the pictures you have, it still be possible to fail while dealing with another image. So the author used another approach which is better. Let us analyze the code first.
 
+</font>
+
 ### <font color= #ff3399 >The code block of interactive GUI:</font> ###
 
 #### <font color= #00FA9A >Let us go into the main function first.</font> ####
@@ -131,7 +133,6 @@ int main( int argc, const char** argv )
     return 0;
 }
 ```
-
 <font size=4 face="微软雅黑">
 
 This block of codes mainly implement three effects.
@@ -250,11 +251,14 @@ void onMouse( int event, int x, int y, int flags, void* userdata )
     }
 }
 ```
+<font size=4 face="微软雅黑">
 
 This block of codes mainly implement three effects.
 1. Obtain the value of pixel and convert it into different color spaces.
 2. Add and show the text.
 3. Combine and show the image.
+
+</font>
 
 <Strong><font color=tomato>Obtain the value of pixel and convert it into different color spaces.</font></strong>
 
@@ -275,12 +279,16 @@ This block of codes mainly implement three effects.
         Vec3b ycbPixel(ycb.at<Vec3b>(0,0));
         Vec3b labPixel(lab.at<Vec3b>(0,0));
 ```
+<font size=4 face="微软雅黑">
+
 Vec3b intensity = img.at<Vec3b>(y, x); [<font color=cyan>can be used to acquire the intensity value of the pixel.</font>](https://docs.opencv.org/2.4.13.2/doc/user_guide/ug_mat.html) According to the RGB image,
 1. uchar blue = intensity.val[0];
 2. uchar green = intensity.val[1];
 3. uchar red = intensity.val[2];
 
 If you want to go deep into the source with F12 and understand the syntax of this code and Mat3b, you need to know about some basic grammar of C++, such as Class and Templates.
+
+</font>
 
 ```cpp
 cvtColor(bgr, ycb, COLOR_BGR2YCrCb);
