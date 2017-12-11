@@ -18,7 +18,6 @@ I analyze that the first step of my work is to split the images. [<font color=cy
 
 ## <font color=red><center>  Four Color Spaces </center></font> ##
 
-<font size=4 face="微软雅黑">
 
 Four color spaces are introduced. They are BGR, HSV, LAB and YCrCb respectively. There are certain formulas used to transform one color space into another. [<font color=cyan>You can access them from this website.</font>](https://docs.opencv.org/2.4/modules/imgproc/doc/miscellaneous_transformations.html) We choose them depending on their properties. So let us focus on their properties first.
 
@@ -62,7 +61,6 @@ So, the L channel is independent of color information and encodes brightness onl
 - The S component is also very similar in both images.
 - The V Component captures the amount of light falling on it thus it changes due to illumination changes.
 
-</font>
 
 ## <font color=Violet><center> How to Choose Color Spaces </center></font> ##
 
