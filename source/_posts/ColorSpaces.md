@@ -18,27 +18,28 @@ I analyze that the first step of my work is to split the images. [<font color=cy
 
 ## <font color=red><center>  Four Color Spaces </center></font> ##
 
+<font size=4 face="微软雅黑">
 
 Four color spaces are introduced. They are BGR, HSV, LAB and YCrCb respectively. There are certain formulas used to transform one color space into another. [<font color=cyan>You can access them from this website.</font>](https://docs.opencv.org/2.4/modules/imgproc/doc/miscellaneous_transformations.html) We choose them depending on their properties. So let us focus on their properties first.
 
 <Strong><font color=tomato>The RGB Color Space:</font></strong>
 
 ![mark](http://ox8ixvjau.bkt.clouddn.com/blog/171210/EmHIDA3cea.png?imageslim)
-- The three channels(B, G, R) are correlated by the amount of light hitting the surface. In RGB color space the color information is separated into three channels but the same three channels also encode brightness information.
-- significant perceptual non-uniformity(Even with our eyes we can see the clear difference between indoor and outdoor B, G, R channels)
-- mixing of chrominance ( Color related information ) and luminance ( Intensity related information ) data
+1. The three channels(B, G, R) are correlated by the amount of light hitting the surface. In RGB color space the color information is separated into three channels but the same three channels also encode brightness information.
+2. significant perceptual non-uniformity(Even with our eyes we can see the clear difference between indoor and outdoor B, G, R channels)
+3. mixing of chrominance ( Color related information ) and luminance ( Intensity related information ) data
 
 <Strong><font color=tomato>The LAB Color Space:</font></strong>
 
 ![mark](http://ox8ixvjau.bkt.clouddn.com/blog/171210/L1eFd94dmh.png?imageslim)
-- Different from RGB Color Space, LAB only have two channels encoding color. Let me introduce the meaning of different channels first:
-	   - L-Lightness(Intensity)
-	   - A-color component ranging from Green to Magenta
-	   - B-color component ranging from Blue to Yellow
+1. Different from RGB Color Space, LAB only have two channels encoding color. Let me introduce the meaning of different channels first:
+	 - L-Lightness(Intensity)
+	 - A-color component ranging from Green to Magenta
+	 - B-color component ranging from Blue to Yellow
 
 So, the L channel is independent of color information and encodes brightness only. The other two channels encode color.
-- Perceptually uniform color space which approximates how we perceive color.(We can not use our eyes to see clear difference between indoor and outdoor A, B channels which encodes color.)
-- It is pretty clear from the figure that the change in illumination has mostly affected the L component.
+2. Perceptually uniform color space which approximates how we perceive color.(We can not use our eyes to see clear difference between indoor and outdoor A, B channels which encodes color.)
+3. It is pretty clear from the figure that the change in illumination has mostly affected the L component.
 
 <Strong><font color=tomato>The YCrCb Color Space:</font></strong>
 
@@ -61,6 +62,7 @@ So, the L channel is independent of color information and encodes brightness onl
 - The S component is also very similar in both images.
 - The V Component captures the amount of light falling on it thus it changes due to illumination changes.
 
+</font>
 
 ## <font color=Violet><center> How to Choose Color Spaces </center></font> ##
 
