@@ -115,8 +115,7 @@
             <!-- Post -->
             <div class="typo" style="padding: 3rem;">
                 <h2 id="Preface"><a href="#Preface" class="headerlink" title=" Preface "></a><font color="#0099ff"><center> Preface </center></font></h2><p>This post includes some simple examples of the functions I meet while learning Color Spaces. You can see the post <a href="https://evilperfectionist.github.io/ColorSpaces/" target="_blank" rel="noopener"><font color="cyan">here.</font></a></p>
-<h2 id="Content"><a href="#Content" class="headerlink" title=" Content "></a><font color="red"><center> Content </center></font></h2><p>####<strong><font color="tomato">Function Sprintf </font></strong></p>
-<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
+<h2 id="Content"><a href="#Content" class="headerlink" title=" Content "></a><font color="red"><center> Content </center></font></h2><h4 id="Function-Sprintf"><a href="#Function-Sprintf" class="headerlink" title="Function Sprintf "></a><strong><font color="tomato">Function Sprintf </font></strong></h4><pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;stdio.h></span></span>
 <span class="token keyword">int</span> <span class="token function">main</span> <span class="token punctuation">(</span><span class="token punctuation">)</span>
 <span class="token punctuation">{</span>
   <span class="token keyword">char</span> buffer <span class="token punctuation">[</span><span class="token number">50</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
@@ -128,14 +127,12 @@
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <p>The output is: [5 plus 3 is 8] is a string 13 chars long</p>
 <p>So what the function does is to write the content of the second parameter into the string(first parameter).</p>
-<p>####<strong><font color="tomato">Method sort() </font></strong></p>
-<pre class="line-numbers language-python"><code class="language-python">a <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">]</span>
+<h4 id="Method-sort"><a href="#Method-sort" class="headerlink" title="Method sort() "></a><strong><font color="tomato">Method sort() </font></strong></h4><pre class="line-numbers language-python"><code class="language-python">a <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">]</span>
 a<span class="token punctuation">.</span>sort<span class="token punctuation">(</span><span class="token punctuation">)</span>
 <span class="token keyword">print</span> <span class="token punctuation">(</span>a<span class="token punctuation">)</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 <p>The output is [1, 2, 3, 4, 5].</p>
-<p>####<strong><font color="tomato">Method plt.hist2d </font></strong></p>
-<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">from</span> matplotlib<span class="token punctuation">.</span>colors <span class="token keyword">import</span> LogNorm
+<h4 id="Method-plt-hist2d"><a href="#Method-plt-hist2d" class="headerlink" title="Method plt.hist2d "></a><strong><font color="tomato">Method plt.hist2d </font></strong></h4><pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">from</span> matplotlib<span class="token punctuation">.</span>colors <span class="token keyword">import</span> LogNorm
 <span class="token keyword">import</span> matplotlib<span class="token punctuation">.</span>pyplot <span class="token keyword">as</span> plt
 x <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">]</span>
 y <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">]</span>
@@ -159,8 +156,7 @@ plt<span class="token punctuation">.</span>show<span class="token punctuation">(
 <center><br><img src="http://ox8ixvjau.bkt.clouddn.com/blog/171211/i8D2lhjh3e.png?imageslim" alt="mark"><br></center>
 
 <p>In this case, the parameter bins stands for the number of bins for the two dimensions. The parameter norm=LogNorm() means that the number in the colorbar in the right will be calculated in logarithm. In other words, the data was normalized via log10.</p>
-<p>####<strong><font color="tomato">Syntax if not </font></strong></p>
-<pre class="line-numbers language-python"><code class="language-python">a <span class="token operator">=</span> <span class="token number">0</span>
+<h4 id="Syntax-if-not"><a href="#Syntax-if-not" class="headerlink" title="Syntax if not "></a><strong><font color="tomato">Syntax if not </font></strong></h4><pre class="line-numbers language-python"><code class="language-python">a <span class="token operator">=</span> <span class="token number">0</span>
 x <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">]</span>
 <span class="token keyword">if</span> <span class="token operator">not</span> a<span class="token punctuation">:</span>
     x <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">]</span>
