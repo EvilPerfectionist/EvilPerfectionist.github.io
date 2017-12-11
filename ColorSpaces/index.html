@@ -116,8 +116,48 @@
             <div class="typo" style="padding: 3rem;">
                 <h2 id="Preface"><a href="#Preface" class="headerlink" title=" Preface "></a><font color="#0099ff"><center> Preface </center></font></h2><font size="4" face="微软雅黑"><br><br>I analyze that the first step of my work is to split the images. <a href="https://www.learnopencv.com/color-spaces-in-opencv-cpp-python/" target="_blank" rel="noopener"><font color="cyan">I follow this tutorial to learn color spaces.</font></a>.The example and method is wonderful and allow me to fully understand how to choose the best color spaces. You can get the source code from my Github Account.<br><br></font>
 
-<h2 id="Four-Color-Spaces"><a href="#Four-Color-Spaces" class="headerlink" title="  Four Color Spaces "></a><font color="red"><center>  Four Color Spaces </center></font></h2><font size="4" face="微软雅黑"><br><br>Four color spaces are introduced. They are BGR, HSV, LAB and YCrCb respectively. There are certain formulas used to transform one color space into another. <a href="https://docs.opencv.org/2.4/modules/imgproc/doc/miscellaneous_transformations.html" target="_blank" rel="noopener"><font color="cyan">You can access them from this website.</font></a> We choose them depending on their properties. So let us focus on their properties first.<br><br><strong><font color="tomato">The RGB Color Space:</font></strong><br><br><img src="http://ox8ixvjau.bkt.clouddn.com/blog/171210/EmHIDA3cea.png?imageslim" alt="mark"><br>- The three channels(B, G, R) are correlated by the amount of light hitting the surface. In RGB color space the color information is separated into three channels but the same three channels also encode brightness information.<br>- significant perceptual non-uniformity(Even with our eyes we can see the clear difference between indoor and outdoor B, G, R channels)<br>- mixing of chrominance ( Color related information ) and luminance ( Intensity related information ) data<br><br><strong><font color="tomato">The LAB Color Space:</font></strong><br><br><img src="http://ox8ixvjau.bkt.clouddn.com/blog/171210/L1eFd94dmh.png?imageslim" alt="mark"><br>- Different from RGB Color Space, LAB only have two channels encoding color. Let me introduce the meaning of different channels first:<br>       - L-Lightness(Intensity)<br>       - A-color component ranging from Green to Magenta<br>       - B-color component ranging from Blue to Yellow<br><br>So, the L channel is independent of color information and encodes brightness only. The other two channels encode color.<br>- Perceptually uniform color space which approximates how we perceive color.(We can not use our eyes to see clear difference between indoor and outdoor A, B channels which encodes color.)<br>- It is pretty clear from the figure that the change in illumination has mostly affected the L component.<br><br><strong><font color="tomato">The YCrCb Color Space:</font></strong><br><br><img src="http://ox8ixvjau.bkt.clouddn.com/blog/171210/hH2fJf2hh3.png?imageslim" alt="mark"><br>- The YCrCb color space is derived from the RGB color space and has the following three components<br>       - Y-Luminance or Luma component obtained from RGB after gamma correction.<br>       - Cr = R – Y ( how far is the red component from Luma ).<br>       - Cb = B – Y ( how far is the blue component from Luma ).<br>- Similar observations as LAB can be made for Intensity and color components with regard to Illumination changes<br>- White has undergone change in all 3 components<br><br><strong><font color="tomato">The HSV Color Space:</font></strong><br><br><img src="http://ox8ixvjau.bkt.clouddn.com/blog/171211/J0alJ27GbE.png?imageslim" alt="mark"><br>- The HSV color space has the following three components<br>       - H-Hue ( Dominant Wavelength )<br>       -  Saturation ( Purity / shades of the color )<br>       - Value ( Intensity )<br>- The H Component is very similar in both the images which indicates the color information is intact even under illumination changes.<br>- The S component is also very similar in both images.<br>- The V Component captures the amount of light falling on it thus it changes due to illumination changes.<br><br></font>
-
+<h2 id="Four-Color-Spaces"><a href="#Four-Color-Spaces" class="headerlink" title="  Four Color Spaces "></a><font color="red"><center>  Four Color Spaces </center></font></h2><p>Four color spaces are introduced. They are BGR, HSV, LAB and YCrCb respectively. There are certain formulas used to transform one color space into another. <a href="https://docs.opencv.org/2.4/modules/imgproc/doc/miscellaneous_transformations.html" target="_blank" rel="noopener"><font color="cyan">You can access them from this website.</font></a> We choose them depending on their properties. So let us focus on their properties first.</p>
+<p><strong><font color="tomato">The RGB Color Space:</font></strong></p>
+<p><img src="http://ox8ixvjau.bkt.clouddn.com/blog/171210/EmHIDA3cea.png?imageslim" alt="mark"></p>
+<ul>
+<li>The three channels(B, G, R) are correlated by the amount of light hitting the surface. In RGB color space the color information is separated into three channels but the same three channels also encode brightness information.</li>
+<li>significant perceptual non-uniformity(Even with our eyes we can see the clear difference between indoor and outdoor B, G, R channels)</li>
+<li>mixing of chrominance ( Color related information ) and luminance ( Intensity related information ) data</li>
+</ul>
+<p><strong><font color="tomato">The LAB Color Space:</font></strong></p>
+<p><img src="http://ox8ixvjau.bkt.clouddn.com/blog/171210/L1eFd94dmh.png?imageslim" alt="mark"></p>
+<ul>
+<li>Different from RGB Color Space, LAB only have two channels encoding color. Let me introduce the meaning of different channels first:<pre><code> - L-Lightness(Intensity)
+ - A-color component ranging from Green to Magenta
+ - B-color component ranging from Blue to Yellow
+</code></pre></li>
+</ul>
+<p>So, the L channel is independent of color information and encodes brightness only. The other two channels encode color.</p>
+<ul>
+<li>Perceptually uniform color space which approximates how we perceive color.(We can not use our eyes to see clear difference between indoor and outdoor A, B channels which encodes color.)</li>
+<li>It is pretty clear from the figure that the change in illumination has mostly affected the L component.</li>
+</ul>
+<p><strong><font color="tomato">The YCrCb Color Space:</font></strong></p>
+<p><img src="http://ox8ixvjau.bkt.clouddn.com/blog/171210/hH2fJf2hh3.png?imageslim" alt="mark"></p>
+<ul>
+<li>The YCrCb color space is derived from the RGB color space and has the following three components<pre><code> - Y-Luminance or Luma component obtained from RGB after gamma correction.
+ - Cr = R – Y ( how far is the red component from Luma ).
+ - Cb = B – Y ( how far is the blue component from Luma ).
+</code></pre></li>
+<li>Similar observations as LAB can be made for Intensity and color components with regard to Illumination changes</li>
+<li>White has undergone change in all 3 components</li>
+</ul>
+<p><strong><font color="tomato">The HSV Color Space:</font></strong></p>
+<p><img src="http://ox8ixvjau.bkt.clouddn.com/blog/171211/J0alJ27GbE.png?imageslim" alt="mark"></p>
+<ul>
+<li>The HSV color space has the following three components<pre><code> - H-Hue ( Dominant Wavelength )
+ -  Saturation ( Purity / shades of the color )
+ - Value ( Intensity )
+</code></pre></li>
+<li>The H Component is very similar in both the images which indicates the color information is intact even under illumination changes.</li>
+<li>The S component is also very similar in both images.</li>
+<li>The V Component captures the amount of light falling on it thus it changes due to illumination changes.</li>
+</ul>
 <h2 id="How-to-Choose-Color-Spaces"><a href="#How-to-Choose-Color-Spaces" class="headerlink" title=" How to Choose Color Spaces "></a><font color="Violet"><center> How to Choose Color Spaces </center></font></h2><font size="4" face="微软雅黑"><br><br>I run the code written by Satya Mallick. He built a interactive GUI to detect the color of the pixels in the images. You can obtain the values of different colors through this simple GUI. The next step is to extract certain colors from the cube. Still, he wrote a simple software which has Trackbars on the windows. Since each color space can be split into three particular channels, the author set up thresholds(the maximum and minimum values of the channels) for each channel and used the functions inRange and bitwise_and to extract the specific color. You can see the description of the inRange function <a href="https://docs.opencv.org/2.4/modules/core/doc/operations_on_arrays.html?highlight=inrange#inrange" target="_blank" rel="noopener"><font color="cyan">here</font></a> and bitwise_and function <a href="https://docs.opencv.org/2.4/modules/core/doc/operations_on_arrays.html#bitwise-and" target="_blank" rel="noopener"><font color="cyan">here.</font></a> <font color="Violet">I got stuck here for a while since I ignore the fact that the value is 8 bit rather than 1 bit which means that it ranges from 00000000 to 11111111. While doing &amp; and ^ operation, every 8 bit joins in the operation.</font>
 
 <p>This method seems very great. But it is still hard to find the suitable thresholds manually. Still, there is a problem that even if you have found the best thresholds with all the pictures you have, it still be possible to fail while dealing with another image. So the author used another approach which is better. Let us analyze the code first.</p>
