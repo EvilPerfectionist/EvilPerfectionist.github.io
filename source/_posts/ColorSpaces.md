@@ -159,7 +159,7 @@ There is only one line needed to explain.
 ```cpp
 sprintf_s(filename,"images/rub%02d.jpg",image_number%nImages);
 ```
-The function sprintf_s is similar to the function sprintf. You can learn the parameters of this function from [<font color=cyan>this website.</font>](http://www.cplusplus.com/reference/cstdio/sprintf/). I also have an example from another post. [<font color=cyan>You have better understand it from this example.</font>](https://evilperfectionist.github.io/Note%20of%20CPlusPlus%20I/)<font color=Violet>%02d is derived from %d which you must be familiar with. So the value of %02d is replaced by the value of the third parameter(image_number%nImages). You may be confused about the % in the third parameter, but actually the % is the Modulus Operator. It returns the remainder of an integer division. For example, 1%10 = 1, 3%10 =3, 5%2 = 1. </font>
+The function sprintf_s is similar to the function sprintf. You can learn the parameters of this function from [<font color=cyan>this website.</font>](http://www.cplusplus.com/reference/cstdio/sprintf/). I also have an example from another post. [<font color=cyan>You have better understand it from this example.</font>](https://evilperfectionist.github.io/Note%20of%20CPlusPlus%20&%20Python%20I/)<font color=Violet>%02d is derived from %d which you must be familiar with. So the value of %02d is replaced by the value of the third parameter(image_number%nImages). You may be confused about the % in the third parameter, but actually the % is the Modulus Operator. It returns the remainder of an integer division. For example, 1%10 = 1, 3%10 =3, 5%2 = 1. </font>
 
 <Strong><font color=tomato>Show the image</font></strong>
 
@@ -386,7 +386,7 @@ for fi in files[:]:
 ```
 glob.glob returns a possibly-empty list of path names that match pathname, which must be a string containing a path specification.
 
-sort() method can return a sorted list. [<font color=cyan>You can better understand it from this post.</font>](https://evilperfectionist.github.io/Note%20of%20CPlusPlus%20I/l)
+sort() method can return a sorted list. [<font color=cyan>You can better understand it from this post.</font>](https://evilperfectionist.github.io/Note%20of%20CPlusPlus%20&%20Python%20I/)
 
 If you want to split an image in a certain color space into three channels. You can use codes like this:
 ```python
@@ -467,10 +467,10 @@ plt.figure(figsize=[20,10]) make a background whose size is 20*10
 
 plt.subplot(2,3,1) separate the whole figure into a 2*3 region and the third parameter indicates the location of the picture. According to a 2*3 region, six pictures can be showed.
 
-plt.hist2d is a little difficult to understand. [<font color=cyan>You can grasp it from this post.</font>](https://evilperfectionist.github.io/Note%20of%20CPlusPlus%20I/l) It is easy for us to observe the degree of the density of the channels through the image plotted by plt.hist2d.
+plt.hist2d is a little difficult to understand. [<font color=cyan>You can grasp it from this post.</font>](https://evilperfectionist.github.io/Note%20of%20CPlusPlus%20&%20Python%20I/) It is easy for us to observe the degree of the density of the channels through the image plotted by plt.hist2d.
 ![mark](http://ox8ixvjau.bkt.clouddn.com/blog/171211/I8a0hI9Ljf.png?imageslim)
 
-Also you can learn about the usage of "if not" syntax [<font color=cyan>here.</font>](https://evilperfectionist.github.io/Note%20of%20CPlusPlus%20I/l)
+Also you can learn about the usage of "if not" syntax [<font color=cyan>here.</font>](https://evilperfectionist.github.io/Note%20of%20CPlusPlus%20&%20Python%20I/)
 
 
 ## <font color=#00ff00><center> Conclusion </center></font> ##

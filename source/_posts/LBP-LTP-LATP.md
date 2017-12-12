@@ -5,7 +5,7 @@ categories:
 - OpenCV
 tags:
 - OpenCV
-thumbnail: "http://ox8ixvjau.bkt.clouddn.com/blog/171212/l3g3Id5dGL.jpg"
+thumbnail: "http://ox8ixvjau.bkt.clouddn.com/blog/171213/li5Gj4bgdk.jpg"
 ---
 
 ## <font color=#0099ff><center> Preface </center></font> ##
@@ -18,7 +18,6 @@ Local binary patterns (LBP) is a type of visual descriptor used for classificati
 
 ## <font color=red><center> How to Calculate </center></font> ##
 
-<font face="微软雅黑">
 
 ### <font color= #ff3399 >LBP:</font> ###
 The method is very easy to understand. You can learn how to calculate the values of LBP in detail from the link I give you at the preface. If you are not interested in the principle. You can only see the image and code below.
@@ -194,5 +193,3 @@ void ComputeLATP(IplImage *img, IplImage *LATPImage_p, IplImage *LATPImage_n, in
 	 }
 }
 ```
-
-</font>
