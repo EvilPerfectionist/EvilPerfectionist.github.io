@@ -1,5 +1,5 @@
 ---
-title: Note of CPlusPlus I
+title: Note of CPlusPlus & Python I
 date: 2017/12/11 10:21:00
 categories:
 - OpenCV
@@ -101,6 +101,25 @@ print(x)
 ```
 The result will be [4, 5, 6]
 
+#### <Strong><font color=tomato>Method plt.plot </font></strong>
 
+```python
+import matplotlib.pyplot as plt
+plt.plot([1,2,3,4])
+plt.ylabel('some numbers')
+plt.show()
+```
+![mark](http://ox8ixvjau.bkt.clouddn.com/blog/171212/cFDBBGfB82.png?imageslim)
+
+You may be wondering why the x-axis ranges from 0-3 and the y-axis from 1-4. If you provide a single list or array to the plot() command, matplotlib assumes it is a sequence of y values, and automatically generates the x values for you. Since python ranges start with 0, the default x vector has the same length as y but starts with 0. Hence the x data are [0,1,2,3].
+```python
+import matplotlib.pyplot as plt
+plt.plot([1, 2, 3, 4], [1, 4, 9, 16])
+plt.ylabel('some numbers')
+plt.show()
+```
+![mark](http://ox8ixvjau.bkt.clouddn.com/blog/171212/JEIJBGIJja.png?imageslim)
+
+If you provide two arrays which are corresponding with each other. It will plot a broken line according to the points.
 
 ## <font color=yellowish><center>The End</center> ##
