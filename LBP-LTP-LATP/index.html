@@ -1,0 +1,376 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<link rel="bookmark"  type="image/x-icon"  href="/img/Mein-Logo.png"/>
+	 <link rel="shortcut icon" href="/img/Mein-Logo.png">
+	
+			
+    <title>
+    Learn in Life
+    </title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="/css/mic_main.css" />
+    <link rel="stylesheet" href="/css/dropdownMenu.css" />
+    
+    	<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+	
+    <noscript>
+        <link rel="stylesheet" href="/css/noscript.css" />
+    </noscript>
+
+			    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery.scrollex.min.js"></script>
+    <script src="/js/jquery.scrolly.min.js"></script>
+    <script src="/js/skel.min.js"></script>
+    <script src="/js/util.js"></script>
+    <script src="/js/main.js"></script>
+	
+<link rel="stylesheet" href="/css/prism-okaidia.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+    
+		
+<!-- Layouts -->
+
+
+
+<!--  代码渲染  -->
+<link rel="stylesheet" href="/css/prism_coy.css" />
+<link rel="stylesheet" href="/css/typo.css" />
+<!-- 文章页 -->
+<body class="is-loading">
+    <!-- Wrapper 外包 s-->
+    <div id="wrapper" class="fade-in">
+        <!-- Intro 头部显示 s -->
+        <!-- Intro 头部显示 e -->
+        <!-- Header 头部logo start -->
+        <header id="header">
+    <a href="/" class="logo">EvilPerfectionist</a>
+</header>
+        <!-- Nav 导航条 start -->
+        <nav id="nav" class="special" >
+            <ul class="menu links" >
+			<!-- Homepage  主页  --> 
+			<li >
+	            <a href="/" rel="nofollow">主页</a>
+	        </li>
+			<!-- categories_name  分类   --> 
+	        
+	        <li class="active">
+	            <a href="#s1">分类</a>
+	                    <ul class="submenu">
+	                        <li>
+	                        <a class="category-link" href="/categories/Diary/">Diary</a></li><li><a class="category-link" href="/categories/OpenCV/">OpenCV</a></li><li><a class="category-link" href="/categories/OpenCV/C/">C++</a></li><li><a class="category-link" href="/categories/Summary/">Summary</a></li><li><a class="category-link" href="/categories/Travel/">Travel</a>
+	                    </ul>
+	        </li>
+	        
+	        <!-- archives  归档   --> 
+	        
+	        
+		        <!-- Pages 自定义   -->
+		        
+		        <li>
+		            <a href="/about/" title="简历">
+		                简历
+		            </a>
+		        </li>
+		        
+		        <li>
+		            <a href="/group/" title="团队">
+		                团队
+		            </a>
+		        </li>
+		        
+		        <li>
+		            <a href="/gallery/" title="图库">
+		                图库
+		            </a>
+		        </li>
+		        
+		        <li>
+		            <a href="/tag/" title="标签">
+		                标签
+		            </a>
+		        </li>
+		        
+
+
+            </ul>
+            <!-- icons 图标   -->
+			<ul class="icons">
+		            
+		                <li><a href="https://github.com/EvilPerfectionist" class="icon fa-github"><span class="label">GitHub</span></a></li>
+		            
+		            
+		            
+		            
+			</ul>
+</nav>
+
+        <div id="main" >
+            <div class ="post_page_title_img" style="height: 25rem;background-image: url(http://ox8ixvjau.bkt.clouddn.com/blog/171212/l3g3Id5dGL.jpg);background-position: center; background-repeat:no-repeat; background-size:cover;-moz-background-size:cover;overflow:hidden;" >
+                <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2 >LBP LTP LATP</h2></a>
+            </div>
+            <!-- Post -->
+            <div class="typo" style="padding: 3rem;">
+                <h2 id="Preface"><a href="#Preface" class="headerlink" title=" Preface "></a><font color="#0099ff"><center> Preface </center></font></h2><font face="微软雅黑"><br><br>Local binary patterns (LBP) is a type of visual descriptor used for classification in computer vision. Local ternary patterns (LTP) and LATP are an extension of Local binary patterns (LBP). In this post, I would like to introduce these feature extraction methods and give an example for texture matching <a href="http://hanzratech.in/2015/05/30/local-binary-patterns.html" target="_blank" rel="noopener"><font color="cyan">following this link.</font></a> For my task, I plan to use them along with color features for the next step.<br><br></font>
+
+<h2 id="How-to-Calculate"><a href="#How-to-Calculate" class="headerlink" title=" How to Calculate "></a><font color="red"><center> How to Calculate </center></font></h2><font face="微软雅黑"><br><br>### <font color="#ff3399">LBP:</font> ###<br>The method is very easy to understand. You can learn how to calculate the values of LBP in detail from the link I give you at the preface. If you are not interested in the principle. You can only see the image and code below.<br><br><img src="http://ox8ixvjau.bkt.clouddn.com/blog/171212/iBLHIB5hm4.png?imageslim" alt="mark"><br><br><code>cpp
+void ComputeLBP(IplImage *img, IplImage *LBPImage){
+    IplImage* GrayImage = cvCreateImage(cvGetSize(img), 8, 1);
+    cvCvtColor(img, GrayImage, CV_BGR2GRAY);
+    int center=0;
+    int center_lbp=0;
+    for (     int row=1; row &lt; GrayImage-&gt;height-1; row++){
+        for (int col=1; col &lt; GrayImage-&gt;width -1; col++){
+            center        = cvGetReal2D(GrayImage, row  , col   );
+            center_lbp  = 0;
+            if (center &lt;= cvGetReal2D(GrayImage, row-1, col-1))
+                center_lbp += 1 ;
+            if (center &lt;= cvGetReal2D(GrayImage, row-1, col  ))
+                center_lbp += 2 ;
+            if (center &lt;= cvGetReal2D(GrayImage, row-1, col+1))
+                center_lbp += 4 ;
+            if (center &lt;= cvGetReal2D(GrayImage, row  , col-1))
+                center_lbp += 8 ;
+            if (center &lt;= cvGetReal2D(GrayImage, row  , col+1))
+                center_lbp += 16;
+            if (center &lt;= cvGetReal2D(GrayImage, row+1, col-1))
+                center_lbp += 32;
+            if (center &lt;= cvGetReal2D(GrayImage, row+1, col  ))
+                center_lbp += 64;
+            if (center &lt;= cvGetReal2D(GrayImage, row+1, col+1))
+                center_lbp += 128;
+            cvSetReal2D( LBPImage, row, col, center_lbp );
+        }
+    }
+}</code><br><br>### <font color="#ff3399">LTP:</font> ###<br>The formula of LTP is a little more complex than the LBP. LTP method adds a new parameter k. And the value of pixel can be set as 1, 0, -1 instead of 1, 0.<br><br><img src="http://ox8ixvjau.bkt.clouddn.com/blog/171212/54Ied0Fdkb.png?imageslim" alt="mark"><br><br><code>cpp
+void ComputeLTP(IplImage *img, IplImage *LTPImage_p, IplImage *LTPImage_n, int K){
+    IplImage* GrayImage = cvCreateImage(cvGetSize(img), 8, 1);
+    cvCvtColor(img, GrayImage, CV_BGR2GRAY);
+    int center=0;
+    int center_ltp_p=0;
+    int center_ltp_n=0;
+    for (     int row=1; row &lt; GrayImage-&gt;height-1; row++){
+        for (int col=1; col &lt; GrayImage-&gt;width -1; col++){
+            center        = cvGetReal2D(GrayImage, row, col);
+            center_ltp_n= 0;
+            if (center &gt;= cvGetReal2D(GrayImage, row-1, col-1)+K)
+                center_ltp_n += 1 ;
+            if (center &gt;= cvGetReal2D(GrayImage, row-1, col  )+K)
+                center_ltp_n += 2 ;
+            if (center &gt;= cvGetReal2D(GrayImage, row-1, col+1)+K)
+                center_ltp_n += 4 ;
+            if (center &gt;= cvGetReal2D(GrayImage, row  , col-1)+K)
+                center_ltp_n += 8 ;
+            if (center &gt;= cvGetReal2D(GrayImage, row  , col+1)+K)
+                center_ltp_n += 16;
+            if (center &gt;= cvGetReal2D(GrayImage, row+1, col-1)+K)
+                center_ltp_n += 32;
+            if (center &gt;= cvGetReal2D(GrayImage, row+1, col  )+K)
+                center_ltp_n += 64;
+            if (center &gt;= cvGetReal2D(GrayImage, row+1, col+1)+K)
+                center_ltp_n += 128;
+            cvSetReal2D(LTPImage_n, row, col, center_ltp_n);//正值矩阵输入
+
+            center_ltp_p= 0;
+            if (center &lt;= cvGetReal2D(GrayImage, row-1, col-1)-K)
+                center_ltp_p += 1 ;
+            if (center &lt;= cvGetReal2D(GrayImage, row-1, col  )-K)
+                center_ltp_p += 2 ;
+            if (center &lt;= cvGetReal2D(GrayImage, row-1, col+1)-K)
+                center_ltp_p += 4 ;
+            if (center &lt;= cvGetReal2D(GrayImage, row  , col-1)-K)
+                center_ltp_p += 8 ;
+            if (center &lt;= cvGetReal2D(GrayImage, row  , col+1)-K)
+                center_ltp_p += 16;
+            if (center &lt;= cvGetReal2D(GrayImage, row+1, col-1)-K)
+                center_ltp_p += 32;
+            if (center &lt;= cvGetReal2D(GrayImage, row+1, col  )-K)
+                center_ltp_p += 64;
+            if (center &lt;= cvGetReal2D(GrayImage, row+1, col+1)-K)
+                center_ltp_p += 128;
+            cvSetReal2D(LTPImage_p, row, col, center_ltp_p);//负值矩阵输入
+        }
+    }
+}</code><br><br>### <font color="#ff3399">LATP:</font> ###<br>The formula of LATP is the most complicated. The advantages of LATP method is that the value depends on mean and variance of the eight neighbourhood pixels and is not associated with the center pixel.<br><br><img src="http://ox8ixvjau.bkt.clouddn.com/blog/171212/DmgdIClH9C.png?imageslim" alt="mark"><br><br><code>cpp
+void ComputeLATP(IplImage *img, IplImage *LATPImage_p, IplImage *LATPImage_n, int K){
+     IplImage* GrayImage = cvCreateImage(cvGetSize(img), 8, 1);
+     cvCvtColor(img, GrayImage, CV_BGR2GRAY);
+     int center = 0;
+     int center_latp_p = 0;
+     int center_latp_n = 0;
+     int c1 = 0;
+     int c2 = 0;
+     int c3 = 0;
+     int c4 = 0;
+     int c5 = 0;
+     int c6 = 0;
+     int c7 = 0;
+     int c8 = 0;
+     double u = 0;
+     double q = 0;
+     for (int row=1; row &lt; GrayImage-&gt;height-1; row++){
+         for (int col=1; col &lt; GrayImage-&gt;width-1; col++)
+         {
+             center = cvGetReal2D(GrayImage, row, col);
+             c1 = cvGetReal2D(GrayImage, row-1, col-1);
+             c2 = cvGetReal2D(GrayImage, row-1, col);
+             c3 = cvGetReal2D(GrayImage, row-1, col+1);
+             c4 = cvGetReal2D(GrayImage, row, col-1);
+             c5 = cvGetReal2D(GrayImage, row, col+1);
+             c6 = cvGetReal2D(GrayImage, row+1, col-1);
+             c7 = cvGetReal2D(GrayImage, row+1, col);
+             c8 = cvGetReal2D(GrayImage, row+1, col+1);
+
+             u  = (c1+c2+c3+c4+c5+c6+c7+c8)/8;
+             q  = sqrt((c1-u)*(c1-u)+(c2-u)*(c2-u)+(c3-u)*(c3-u)+(c4-u)*(c4-u)+(c5-u)*(c5-u)+(c6-u)*(c6-u)+(c7-u)*(c7-u)+(c8-u)*(c8-u));
+             center=(int)u-K*(int)q;
+             center_latp_p = 0;
+             if (center &gt;= cvGetReal2D(GrayImage, row-1, col-1))
+                 center_latp_p += 1;
+             if (center &gt;= cvGetReal2D(GrayImage, row-1, col  ))
+                 center_latp_p += 2;
+             if (center &gt;= cvGetReal2D(GrayImage, row-1, col+1))
+                 center_latp_p += 4;
+             if (center &gt;= cvGetReal2D(GrayImage, row  , col-1))
+                 center_latp_p += 8;
+             if (center &gt;= cvGetReal2D(GrayImage, row  , col+1))
+                 center_latp_p += 16;
+             if (center &gt;= cvGetReal2D(GrayImage, row+1, col-1))
+                 center_latp_p += 32;
+             if (center &gt;= cvGetReal2D(GrayImage, row+1, col  ))
+                 center_latp_p += 64;
+             if (center &gt;= cvGetReal2D(GrayImage, row+1, col+1))
+                 center_latp_p += 128;
+             cvSetReal2D(LATPImage_p, row, col, center_latp_p);//正值矩阵输入
+
+             center=(int)u+K*(int)q;
+             center_latp_n = 0;
+             if (center &lt;= cvGetReal2D(GrayImage, row-1, col-1))
+                 center_latp_n += 1;
+             if (center &lt;= cvGetReal2D(GrayImage, row-1, col  ))
+                 center_latp_n += 2;
+             if (center &lt;= cvGetReal2D(GrayImage, row-1, col+1))
+                 center_latp_n += 4;
+             if (center &lt;= cvGetReal2D(GrayImage, row  , col-1))
+                 center_latp_n += 8;
+             if (center &lt;= cvGetReal2D(GrayImage, row  , col+1))
+                 center_latp_n += 16;
+             if (center &lt;= cvGetReal2D(GrayImage, row+1, col-1))
+                 center_latp_n += 32;
+             if (center &lt;= cvGetReal2D(GrayImage, row+1, col  ))
+                 center_latp_n += 64;
+             if (center &lt;= cvGetReal2D(GrayImage, row+1, col+1))
+                 center_latp_n += 128;
+             cvSetReal2D(LATPImage_n, row, col, center_latp_n);//负值矩阵输入
+         }
+     }
+}</code><br><br></font>
+
+            </div>
+
+            <!-- Post Comments -->
+            
+    <!-- 使用 DISQUS_CLICK -->
+<div id="disqus-comment">
+    <div id="disqus_thread"></div>
+
+<!-- add animation -->
+<style>
+	.disqus_click_btn {
+            line-height: 30px;
+            margin: 0;
+            min-width: 50px;
+            padding: 0 14px;
+            display: inline-block;
+            font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+            font-size: 14px;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 0;
+            overflow: hidden;
+            will-change: box-shadow;
+            transition: box-shadow .2s cubic-bezier(.4, 0, 1, 1), background-color .2s cubic-bezier(.4, 0, .2, 1), color .2s cubic-bezier(.4, 0, .2, 1);
+            outline: 0;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+            vertical-align: middle;
+            border: 0;
+            background: rgba(158, 158, 158, .2);
+            box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .2), 0 1px 5px 0 rgba(0, 0, 0, .12);
+            color: #fff;
+            background-color: #7EC0EE;
+            text-shadow: 0
+        }
+</style>
+	
+<div class="btn_click_load" id="disqus_bt"> 
+    <button class="disqus_click_btn">点击查看评论</button>
+</div>
+
+<!--
+<script type="text/javascript">
+$('.btn_click_load').click(function() {
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'http-miccall-tech'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+
+    document.getElementById('disqus_bt').style.display = "none";
+});
+</script>
+-->
+<script type="text/javascript">
+    var disqus_config = function () {
+        this.page.url = 'http://yoursite.com/LBP-LTP-LATP/';  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = 'http://yoursite.com/LBP-LTP-LATP/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+</script>
+
+<script type="text/javascript">
+    $('.btn_click_load').click(function() {  //click to load comments
+        (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document;
+            var s = d.createElement('script');
+            s.src = '//http-miccall-tech.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', + new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+        $('.btn_click_load').css('display','none');
+    });
+</script>
+</div>
+<style>
+    #disqus-comment{
+        background-color: #eee;
+        padding: 2pc;
+    }
+</style>
+
+
+        </div>
+        <!-- Copyright 版权 start -->
+                <div id="copyright">
+            <ul>
+                <li>&copy;Powered By <a href="https://hexo.io/zh-cn/" style="border-bottom: none;">hexo</a></li>
+                <li>Design: <a href="https://evilperfectionist.github.io " style="border-bottom: none;">EvilPerfectionist</a></li>
+            </ul>
+            
+            	<span id="busuanzi_container_site_pv">2017总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+			
+        </div>
+    </div>
+</body>
+
+
+
+ 	
+</html>
