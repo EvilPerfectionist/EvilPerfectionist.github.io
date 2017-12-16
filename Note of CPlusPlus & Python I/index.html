@@ -184,6 +184,20 @@ plt<span class="token punctuation">.</span>show<span class="token punctuation">(
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 <p><img src="http://ox8ixvjau.bkt.clouddn.com/blog/171212/JEIJBGIJja.png?imageslim" alt="mark"></p>
 <p>If you provide two arrays which are corresponding with each other. It will plot a broken line according to the points.</p>
+<h4 id="Method-reshape"><a href="#Method-reshape" class="headerlink" title="Method reshape() "></a><strong><font color="tomato">Method reshape() </font></strong></h4><pre class="line-numbers language-python"><code class="language-python">a <span class="token operator">=</span> np<span class="token punctuation">.</span>arange<span class="token punctuation">(</span><span class="token number">6</span><span class="token punctuation">)</span><span class="token punctuation">.</span>reshape<span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>The result will be:</p>
+<p><img src="http://ox8ixvjau.bkt.clouddn.com/blog/171216/3H659kd7H0.png?imageslim" alt="mark"></p>
+<p>What I want to mention is that one of the parameters can be set as negative such as -1. Let us see an example.</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">import</span> numpy <span class="token keyword">as</span> np
+
+a <span class="token operator">=</span> np<span class="token punctuation">.</span>array<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">,</span><span class="token number">5</span><span class="token punctuation">,</span><span class="token number">6</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true"># the unspecified value is inferred to be 2</span>
+b <span class="token operator">=</span> np<span class="token punctuation">.</span>reshape<span class="token punctuation">(</span>a<span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>b<span class="token punctuation">)</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>The result will be:</p>
+<p><img src="http://ox8ixvjau.bkt.clouddn.com/blog/171216/Jd8hG38ll6.png?imageslim" alt="mark"></p>
+<p>-1 here means following. We know that a has 6 numbers, and we set the reshape row as 3, so the unspecified value is inferred to be 2. If a has 9 numbers, and we also set the reshape row as 3 and reshape column as -1 , the unspecified value is inferred to be 3.</p>
 <h2 id="The-End"><a href="#The-End" class="headerlink" title="The End"></a><font color="yellowish"><center>The End</center></font></h2>
             </div>
 
