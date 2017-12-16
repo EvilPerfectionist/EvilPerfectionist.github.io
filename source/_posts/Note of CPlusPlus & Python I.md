@@ -122,4 +122,28 @@ plt.show()
 
 If you provide two arrays which are corresponding with each other. It will plot a broken line according to the points.
 
+#### <Strong><font color=tomato>Method reshape() </font></strong>
+
+```python
+a = np.arange(6).reshape((3, 2))
+```
+The result will be:
+
+![mark](http://ox8ixvjau.bkt.clouddn.com/blog/171216/3H659kd7H0.png?imageslim)
+
+What I want to mention is that one of the parameters can be set as negative such as -1. Let us see an example.
+```python
+import numpy as np
+
+a = np.array([[1,2,3], [4,5,6]]) # the unspecified value is inferred to be 2
+b = np.reshape(a, (3,-1))
+print(b)
+```
+The result will be:
+
+![mark](http://ox8ixvjau.bkt.clouddn.com/blog/171216/Jd8hG38ll6.png?imageslim)
+
+-1 here means following. We know that a has 6 numbers, and we set the reshape row as 3, so the unspecified value is inferred to be 2. If a has 9 numbers, and we also set the reshape row as 3 and reshape column as -1 , the unspecified value is inferred to be 3.
+
+
 ## <font color=yellowish><center>The End</center> ##
