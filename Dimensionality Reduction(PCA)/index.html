@@ -1,0 +1,331 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<link rel="bookmark"  type="image/x-icon"  href="/img/Mein-Logo.png"/>
+	 <link rel="shortcut icon" href="/img/Mein-Logo.png">
+	
+			
+    <title>
+    Learn in Life
+    </title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="/css/mic_main.css" />
+    <link rel="stylesheet" href="/css/dropdownMenu.css" />
+    
+    	<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+	
+    <noscript>
+        <link rel="stylesheet" href="/css/noscript.css" />
+    </noscript>
+
+			    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery.scrollex.min.js"></script>
+    <script src="/js/jquery.scrolly.min.js"></script>
+    <script src="/js/skel.min.js"></script>
+    <script src="/js/util.js"></script>
+    <script src="/js/main.js"></script>
+	
+<link rel="stylesheet" href="/css/prism-okaidia.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+    
+		
+<!-- Layouts -->
+
+
+
+<!--  代码渲染  -->
+<link rel="stylesheet" href="/css/prism_coy.css" />
+<link rel="stylesheet" href="/css/typo.css" />
+<!-- 文章页 -->
+<body class="is-loading">
+    <!-- Wrapper 外包 s-->
+    <div id="wrapper" class="fade-in">
+        <!-- Intro 头部显示 s -->
+        <!-- Intro 头部显示 e -->
+        <!-- Header 头部logo start -->
+        <header id="header">
+    <a href="/" class="logo">EvilPerfectionist</a>
+</header>
+        <!-- Nav 导航条 start -->
+        <nav id="nav" class="special" >
+            <ul class="menu links" >
+			<!-- Homepage  主页  --> 
+			<li >
+	            <a href="/" rel="nofollow">主页</a>
+	        </li>
+			<!-- categories_name  分类   --> 
+	        
+	        <li class="active">
+	            <a href="#s1">分类</a>
+	                    <ul class="submenu">
+	                        <li>
+	                        <a class="category-link" href="/categories/Diary/">Diary</a></li><li><a class="category-link" href="/categories/Machine-Learning/">Machine Learning</a></li><li><a class="category-link" href="/categories/OpenCV/">OpenCV</a></li><li><a class="category-link" href="/categories/OpenCV/C/">C++</a></li><li><a class="category-link" href="/categories/Summary/">Summary</a></li><li><a class="category-link" href="/categories/Travel/">Travel</a>
+	                    </ul>
+	        </li>
+	        
+	        <!-- archives  归档   --> 
+	        
+	        
+		        <!-- Pages 自定义   -->
+		        
+		        <li>
+		            <a href="/about/" title="简历">
+		                简历
+		            </a>
+		        </li>
+		        
+		        <li>
+		            <a href="/group/" title="团队">
+		                团队
+		            </a>
+		        </li>
+		        
+		        <li>
+		            <a href="/gallery/" title="图库">
+		                图库
+		            </a>
+		        </li>
+		        
+		        <li>
+		            <a href="/tag/" title="标签">
+		                标签
+		            </a>
+		        </li>
+		        
+
+
+            </ul>
+            <!-- icons 图标   -->
+			<ul class="icons">
+		            
+		                <li><a href="https://github.com/EvilPerfectionist" class="icon fa-github"><span class="label">GitHub</span></a></li>
+		            
+		            
+		            
+		            
+			</ul>
+</nav>
+
+        <div id="main" >
+            <div class ="post_page_title_img" style="height: 25rem;background-image: url(http://ox8ixvjau.bkt.clouddn.com/blog/171216/eg581EL6Ge.jpg);background-position: center; background-repeat:no-repeat; background-size:cover;-moz-background-size:cover;overflow:hidden;" >
+                <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2 >Dimensionality Reduction PCA</h2></a>
+            </div>
+            <!-- Post -->
+            <div class="typo" style="padding: 3rem;">
+                <h2 id="Preface"><a href="#Preface" class="headerlink" title=" Preface "></a><font color="#0099ff"><center> Preface </center></font></h2><p>Feature extraction is often used for image processing. However, some features are very similar to each other and it will slow down you calculation speed of your algorithm with so many features. Thus it is reasonable to implement Dimensionality Reduction for you features. Principle Components Analysis is a common method to deal with this.</p>
+<h2 id="How-to-Implement-PCA"><a href="#How-to-Implement-PCA" class="headerlink" title=" How to Implement PCA "></a><font color="red"><center> How to Implement PCA </center></font></h2><p>Andrew Ng gives a detailed description about PCA in his Machine Learning video. You can find this video both in coursera or <a href="https://www.bilibili.com/video/av9912938/?from=search&amp;seid=8069802497216456143#page=84" target="_blank" rel="noopener"><font color="cyan">bilibili.</font></a> So I will not explain this algorithm in detail here. The mathematical prove of this algorithm is not necessary for implementing it. So you can follow the instructions below and skip the mathematical prove.</p>
+<h3 id="1-Choose-Samples"><a href="#1-Choose-Samples" class="headerlink" title="1.Choose Samples"></a><font color="#ff3399">1.Choose Samples</font></h3><p>The first thing you should do is choosing your samples and features. In image processing, the pixels can be selected as samples. The codes below can help you select your samples randomly.</p>
+<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token macro property">#<span class="token directive keyword">define</span> SAMPLE_NUMBER 100</span>
+IplImage<span class="token operator">*</span> img <span class="token operator">=</span> <span class="token function">cvCreateImageHeader</span><span class="token punctuation">(</span>size<span class="token punctuation">,</span>IPL_DEPTH_8U<span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+img <span class="token operator">=</span> <span class="token function">cvLoadImage</span><span class="token punctuation">(</span><span class="token string">"1.jpg"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+CvRNG rng <span class="token operator">=</span> <span class="token function">CvRNG</span><span class="token punctuation">(</span> <span class="token function">cvGetTickCount</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> i<span class="token punctuation">,</span> j<span class="token punctuation">,</span> k<span class="token punctuation">,</span> sample_count <span class="token operator">=</span> SAMPLE_NUMBER<span class="token punctuation">;</span>
+k<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token keyword">while</span> <span class="token punctuation">(</span>k <span class="token operator">&lt;</span> sample_count<span class="token punctuation">)</span><span class="token punctuation">{</span>                                                
+    i <span class="token operator">=</span> <span class="token function">cvRandInt</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>rng<span class="token punctuation">)</span><span class="token operator">%</span>img<span class="token operator">-</span><span class="token operator">></span>width<span class="token punctuation">;</span>
+    j <span class="token operator">=</span> <span class="token function">cvRandInt</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>rng<span class="token punctuation">)</span><span class="token operator">%</span>img<span class="token operator">-</span><span class="token operator">></span>height<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>CvRNG rng = CvRNG( cvGetTickCount() ); The function initializes a random number generator and returns the state.  The pointer to the state can be then passed to the cvRandInt, cvRandReal and cvRandArr functions. cvGetTickCount() is helper functions for RNG initialization and accurate time measurement: uses internal clock counter on x86.</p>
+<p>unsigned cvRandInt    (    CvRNG *     rng    ) returns a 32-bit unsigned integer and updates RNG. It is similar to the rand() function from the C runtime library, except that OpenCV functions always generates a 32-bit random number, regardless of the platform.</p>
+<p>So, with this block of codes, we get 100 random samples from the image.</p>
+<h3 id="2-Choose-Features-and-Implement-Mean-Normalization"><a href="#2-Choose-Features-and-Implement-Mean-Normalization" class="headerlink" title="2.Choose Features and Implement Mean Normalization"></a><font color="#ff3399">2.Choose Features and Implement Mean Normalization</font></h3><p>Next, you should choose your features and implement mean normalization. In terms of image processing, it is common to choose colors and textures as features. Below is the codes:</p>
+<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token macro property">#<span class="token directive keyword">define</span> SAMPLE_NUMBER 100</span>
+<span class="token keyword">int</span> hold <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> kernel <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">;</span>
+<span class="token keyword">void</span> <span class="token function">ComputeLTP</span><span class="token punctuation">(</span>IplImage <span class="token operator">*</span>GrayImage<span class="token punctuation">,</span> <span class="token keyword">int</span> i<span class="token punctuation">,</span> <span class="token keyword">int</span> j<span class="token punctuation">,</span><span class="token keyword">float</span> s<span class="token punctuation">[</span><span class="token number">8</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword">int</span> binp<span class="token punctuation">[</span><span class="token number">8</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token keyword">int</span> bino<span class="token punctuation">[</span><span class="token number">8</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token keyword">int</span> binn<span class="token punctuation">[</span><span class="token number">8</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword">int</span> u <span class="token punctuation">;</span>
+    <span class="token keyword">double</span> q <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span>   c<span class="token punctuation">[</span><span class="token number">8</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span> p<span class="token punctuation">;</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> m <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> m<span class="token operator">&lt;</span> kernel<span class="token punctuation">;</span> m<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> n <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> n<span class="token operator">&lt;</span> kernel<span class="token punctuation">;</span> n<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+            u    <span class="token operator">=</span> <span class="token function">cvGetReal2D</span><span class="token punctuation">(</span>GrayImage<span class="token punctuation">,</span> j<span class="token operator">+</span><span class="token number">3</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token operator">*</span>n<span class="token operator">-</span>kernel<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token operator">/</span><span class="token number">2</span>  <span class="token punctuation">,</span> i<span class="token operator">+</span><span class="token number">3</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token operator">*</span>m<span class="token operator">-</span>kernel<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token operator">/</span><span class="token number">2</span>  <span class="token punctuation">)</span><span class="token punctuation">;</span>
+            c<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">cvGetReal2D</span><span class="token punctuation">(</span>GrayImage<span class="token punctuation">,</span> j<span class="token operator">+</span><span class="token number">3</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token operator">*</span>n<span class="token operator">-</span>kernel<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token operator">/</span><span class="token number">2</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> i<span class="token operator">+</span><span class="token number">3</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token operator">*</span>m<span class="token operator">-</span>kernel<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token operator">/</span><span class="token number">2</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            c<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">cvGetReal2D</span><span class="token punctuation">(</span>GrayImage<span class="token punctuation">,</span> j<span class="token operator">+</span><span class="token number">3</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token operator">*</span>n<span class="token operator">-</span>kernel<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token operator">/</span><span class="token number">2</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> i<span class="token operator">+</span><span class="token number">3</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token operator">*</span>m<span class="token operator">-</span>kernel<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token operator">/</span><span class="token number">2</span>  <span class="token punctuation">)</span><span class="token punctuation">;</span>
+            c<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">cvGetReal2D</span><span class="token punctuation">(</span>GrayImage<span class="token punctuation">,</span> j<span class="token operator">+</span><span class="token number">3</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token operator">*</span>n<span class="token operator">-</span>kernel<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token operator">/</span><span class="token number">2</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> i<span class="token operator">+</span><span class="token number">3</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token operator">*</span>m<span class="token operator">-</span>kernel<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token operator">/</span><span class="token number">2</span><span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            c<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">cvGetReal2D</span><span class="token punctuation">(</span>GrayImage<span class="token punctuation">,</span> j<span class="token operator">+</span><span class="token number">3</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token operator">*</span>n<span class="token operator">-</span>kernel<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token operator">/</span><span class="token number">2</span>  <span class="token punctuation">,</span> i<span class="token operator">+</span><span class="token number">3</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token operator">*</span>m<span class="token operator">-</span>kernel<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token operator">/</span><span class="token number">2</span><span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            c<span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">cvGetReal2D</span><span class="token punctuation">(</span>GrayImage<span class="token punctuation">,</span> j<span class="token operator">+</span><span class="token number">3</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token operator">*</span>n<span class="token operator">-</span>kernel<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token operator">/</span><span class="token number">2</span><span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">,</span> i<span class="token operator">+</span><span class="token number">3</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token operator">*</span>m<span class="token operator">-</span>kernel<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token operator">/</span><span class="token number">2</span><span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            c<span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">cvGetReal2D</span><span class="token punctuation">(</span>GrayImage<span class="token punctuation">,</span> j<span class="token operator">+</span><span class="token number">3</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token operator">*</span>n<span class="token operator">-</span>kernel<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token operator">/</span><span class="token number">2</span><span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">,</span> i<span class="token operator">+</span><span class="token number">3</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token operator">*</span>m<span class="token operator">-</span>kernel<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token operator">/</span><span class="token number">2</span>  <span class="token punctuation">)</span><span class="token punctuation">;</span>
+            c<span class="token punctuation">[</span><span class="token number">6</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">cvGetReal2D</span><span class="token punctuation">(</span>GrayImage<span class="token punctuation">,</span> j<span class="token operator">+</span><span class="token number">3</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token operator">*</span>n<span class="token operator">-</span>kernel<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token operator">/</span><span class="token number">2</span><span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">,</span> i<span class="token operator">+</span><span class="token number">3</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token operator">*</span>m<span class="token operator">-</span>kernel<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token operator">/</span><span class="token number">2</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            c<span class="token punctuation">[</span><span class="token number">7</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">cvGetReal2D</span><span class="token punctuation">(</span>GrayImage<span class="token punctuation">,</span> j<span class="token operator">+</span><span class="token number">3</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token operator">*</span>n<span class="token operator">-</span>kernel<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token operator">/</span><span class="token number">2</span>  <span class="token punctuation">,</span> i<span class="token operator">+</span><span class="token number">3</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token operator">*</span>m<span class="token operator">-</span>kernel<span class="token operator">+</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token operator">/</span><span class="token number">2</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">for</span> <span class="token punctuation">(</span> p <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> p <span class="token operator">&lt;</span> <span class="token number">8</span><span class="token punctuation">;</span> p<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+                <span class="token keyword">if</span>        <span class="token punctuation">(</span> u <span class="token operator">&lt;=</span> <span class="token punctuation">(</span>c<span class="token punctuation">[</span>p<span class="token punctuation">]</span> <span class="token operator">-</span> hold <span class="token punctuation">)</span><span class="token punctuation">)</span>
+                    binp<span class="token punctuation">[</span>p<span class="token punctuation">]</span><span class="token operator">++</span><span class="token punctuation">;</span>
+                <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span> u <span class="token operator">>=</span> <span class="token punctuation">(</span>c<span class="token punctuation">[</span>p<span class="token punctuation">]</span> <span class="token operator">+</span> hold <span class="token punctuation">)</span><span class="token punctuation">)</span>
+                    binn<span class="token punctuation">[</span>p<span class="token punctuation">]</span><span class="token operator">++</span><span class="token punctuation">;</span>
+                <span class="token keyword">else</span>
+                    bino<span class="token punctuation">[</span>p<span class="token punctuation">]</span><span class="token operator">++</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span> p <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> p <span class="token operator">&lt;</span> <span class="token number">8</span><span class="token punctuation">;</span> p<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span> <span class="token punctuation">(</span>binp<span class="token punctuation">[</span>p<span class="token punctuation">]</span> <span class="token operator">>=</span> bino<span class="token punctuation">[</span>p<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token operator">&amp;&amp;</span><span class="token punctuation">(</span>binp<span class="token punctuation">[</span>p<span class="token punctuation">]</span> <span class="token operator">>=</span> binn<span class="token punctuation">[</span>p<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+            s<span class="token punctuation">[</span>p<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0.6</span><span class="token punctuation">;</span>
+        <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span> <span class="token punctuation">(</span>bino<span class="token punctuation">[</span>p<span class="token punctuation">]</span> <span class="token operator">></span> binp<span class="token punctuation">[</span>p<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token operator">&amp;&amp;</span><span class="token punctuation">(</span>bino<span class="token punctuation">[</span>p<span class="token punctuation">]</span> <span class="token operator">></span> binn<span class="token punctuation">[</span>p<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+            s<span class="token punctuation">[</span>p<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0.3</span><span class="token punctuation">;</span>
+        <span class="token keyword">else</span>
+            s<span class="token punctuation">[</span>p<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+IplImage<span class="token operator">*</span> img <span class="token operator">=</span> <span class="token function">cvCreateImageHeader</span><span class="token punctuation">(</span>size<span class="token punctuation">,</span>IPL_DEPTH_8U<span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+img <span class="token operator">=</span> <span class="token function">cvLoadImage</span><span class="token punctuation">(</span><span class="token string">"1.jpg"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+CvRNG rng <span class="token operator">=</span> <span class="token function">CvRNG</span><span class="token punctuation">(</span> <span class="token function">cvGetTickCount</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> i<span class="token punctuation">,</span> j<span class="token punctuation">,</span> k<span class="token punctuation">,</span> sample_count <span class="token operator">=</span> SAMPLE_NUMBER<span class="token punctuation">;</span>
+CvMat<span class="token operator">*</span> points   <span class="token operator">=</span> <span class="token function">cvCreateMat</span><span class="token punctuation">(</span> sample_count<span class="token punctuation">,</span><span class="token number">14</span><span class="token punctuation">,</span> CV_32FC1<span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment" spellcheck="true">//samples</span>
+CvMat<span class="token operator">*</span> points2  <span class="token operator">=</span> <span class="token function">cvCreateMat</span><span class="token punctuation">(</span> sample_count<span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> CV_32FC2<span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment" spellcheck="true">//position information</span>
+k<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token keyword">while</span> <span class="token punctuation">(</span>k <span class="token operator">&lt;</span> sample_count<span class="token punctuation">)</span><span class="token punctuation">{</span>                                                
+    i <span class="token operator">=</span> <span class="token function">cvRandInt</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>rng<span class="token punctuation">)</span><span class="token operator">%</span>img<span class="token operator">-</span><span class="token operator">></span>width<span class="token punctuation">;</span>
+    j <span class="token operator">=</span> <span class="token function">cvRandInt</span><span class="token punctuation">(</span><span class="token operator">&amp;</span>rng<span class="token punctuation">)</span><span class="token operator">%</span>img<span class="token operator">-</span><span class="token operator">></span>height<span class="token punctuation">;</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token punctuation">(</span> i <span class="token operator">></span> <span class="token number">3</span><span class="token operator">*</span><span class="token punctuation">(</span>kernel<span class="token number">-1</span><span class="token punctuation">)</span><span class="token operator">/</span><span class="token number">2</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token punctuation">(</span> j <span class="token operator">></span> <span class="token number">3</span><span class="token operator">*</span><span class="token punctuation">(</span>kernel<span class="token number">-1</span><span class="token punctuation">)</span><span class="token operator">/</span><span class="token number">2</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token punctuation">(</span> i <span class="token operator">&lt;</span> <span class="token number">767</span><span class="token operator">-</span><span class="token number">3</span><span class="token operator">*</span><span class="token punctuation">(</span>kernel<span class="token number">-1</span><span class="token punctuation">)</span><span class="token operator">/</span><span class="token number">2</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token punctuation">(</span> j <span class="token operator">&lt;</span> <span class="token number">575</span><span class="token operator">-</span><span class="token number">3</span><span class="token operator">*</span><span class="token punctuation">(</span>kernel<span class="token number">-1</span><span class="token punctuation">)</span><span class="token operator">/</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token punctuation">(</span><span class="token punctuation">(</span>CvPoint2D32f<span class="token operator">*</span><span class="token punctuation">)</span>points2<span class="token operator">-</span><span class="token operator">></span>data<span class="token punctuation">.</span>fl<span class="token punctuation">)</span><span class="token punctuation">[</span>k<span class="token punctuation">]</span><span class="token punctuation">.</span>x <span class="token operator">=</span> i<span class="token punctuation">;</span>
+        <span class="token punctuation">(</span><span class="token punctuation">(</span>CvPoint2D32f<span class="token operator">*</span><span class="token punctuation">)</span>points2<span class="token operator">-</span><span class="token operator">></span>data<span class="token punctuation">.</span>fl<span class="token punctuation">)</span><span class="token punctuation">[</span>k<span class="token punctuation">]</span><span class="token punctuation">.</span>y <span class="token operator">=</span> j<span class="token punctuation">;</span>
+    CvScalar e<span class="token punctuation">[</span><span class="token number">14</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    e<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>val<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token operator">=</span><span class="token punctuation">(</span><span class="token keyword">float</span><span class="token punctuation">)</span><span class="token function">cvGet2D</span><span class="token punctuation">(</span>hsv<span class="token punctuation">,</span> j<span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">.</span>val<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token operator">/</span><span class="token number">180</span><span class="token punctuation">;</span>            <span class="token comment" spellcheck="true">//HSV</span>
+    e<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">.</span>val<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token operator">=</span><span class="token punctuation">(</span><span class="token keyword">float</span><span class="token punctuation">)</span><span class="token function">cvGet2D</span><span class="token punctuation">(</span>hsv<span class="token punctuation">,</span> j<span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">.</span>val<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token operator">/</span><span class="token number">256</span><span class="token punctuation">;</span>
+    e<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">.</span>val<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token operator">=</span><span class="token punctuation">(</span><span class="token keyword">float</span><span class="token punctuation">)</span><span class="token function">cvGet2D</span><span class="token punctuation">(</span>hsv<span class="token punctuation">,</span> j<span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">.</span>val<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token operator">/</span><span class="token number">256</span><span class="token punctuation">;</span>
+    e<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">.</span>val<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token operator">=</span><span class="token punctuation">(</span><span class="token keyword">float</span><span class="token punctuation">)</span><span class="token function">cvGet2D</span><span class="token punctuation">(</span>img<span class="token punctuation">,</span> j<span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">.</span>val<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token operator">/</span><span class="token number">256</span><span class="token punctuation">;</span>            <span class="token comment" spellcheck="true">//RGB</span>
+    e<span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">.</span>val<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token operator">=</span><span class="token punctuation">(</span><span class="token keyword">float</span><span class="token punctuation">)</span><span class="token function">cvGet2D</span><span class="token punctuation">(</span>img<span class="token punctuation">,</span> j<span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">.</span>val<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token operator">/</span><span class="token number">256</span><span class="token punctuation">;</span>
+    e<span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">]</span><span class="token punctuation">.</span>val<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token operator">=</span><span class="token punctuation">(</span><span class="token keyword">float</span><span class="token punctuation">)</span><span class="token function">cvGet2D</span><span class="token punctuation">(</span>img<span class="token punctuation">,</span> j<span class="token punctuation">,</span> i<span class="token punctuation">)</span><span class="token punctuation">.</span>val<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token operator">/</span><span class="token number">256</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span> binp<span class="token punctuation">[</span><span class="token number">8</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">0</span><span class="token punctuation">}</span><span class="token punctuation">,</span> bino<span class="token punctuation">[</span><span class="token number">8</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">0</span><span class="token punctuation">}</span><span class="token punctuation">,</span> binn<span class="token punctuation">[</span><span class="token number">8</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">0</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+    <span class="token function">ComputeLTP</span><span class="token punctuation">(</span>GrayImage<span class="token punctuation">,</span> i<span class="token punctuation">,</span> j<span class="token punctuation">,</span> s<span class="token punctuation">,</span> binp<span class="token punctuation">,</span> bino<span class="token punctuation">,</span> binn<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span> p <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> p <span class="token operator">&lt;</span> <span class="token number">8</span><span class="token punctuation">;</span> p<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+         e<span class="token punctuation">[</span>p<span class="token operator">+</span><span class="token number">6</span><span class="token punctuation">]</span><span class="token punctuation">.</span>val<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> s<span class="token punctuation">[</span>p<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span> p <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> p <span class="token operator">&lt;</span> <span class="token number">14</span><span class="token punctuation">;</span> p<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+         <span class="token function">cvSet2D</span><span class="token punctuation">(</span> points<span class="token punctuation">,</span> k<span class="token punctuation">,</span> p<span class="token punctuation">,</span> e<span class="token punctuation">[</span>p<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    k<span class="token operator">++</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>There are two functions needed to be explained here. Besides, I would like to describe the meanings of some codes in order to help you understand better.<br><img src="http://ox8ixvjau.bkt.clouddn.com/blog/171216/a26EiD46A2.png?imageslim" alt="mark"><br>CvMat* points = cvCreateMat( sample_count,14, CV_32FC1); In this case, the dimensions of the matrix will be 100x14 and the data type will be 32-bit float and one channel.</p>
+<p>C: void cvSet2D(CvArr* arr, int idx0, int idx1, CvScalar value)  assigns the new value to a particular array element. In the case of a sparse array the functions create the node if it does not exist yet.</p>
+<p>For each sample, there are 14 features, they can be divided into two parts —- 6 for colors and 8 for textures. The 6 features for colors are easy to understand. I will explain the process of getting 8 texture features.<br><img src="http://ox8ixvjau.bkt.clouddn.com/blog/171216/EmKjcE8igk.png?imageslim" alt="mark"><br>Because the kernel is set as 3, for an particular sample, we calculate 9 times within a 9x9 grid. For each 3x3 grid, we compare the value from c[0] to c[7] with the value of center and decide the corresponding value of which vector(binp(positive), binn(negative), bino(zero)) should be added one. Finally, we will allocate the values into s[] vector. For example, assuming that binp is [9, 2, 3, 6, 4, 6, 1, 7] which means the values of all the c[0] in each 3x3 grid are larger than the center values and there are two values of c[1] in all 3x3 grids are larger than the center values and so on. And binn can be [0, 3, 4, 1, 3, 2, 5, 0] and bino [0, 4, 2, 2, 2, 1, 3, 2]. Therefore, s can be [0.6, 0.3, 0, 0.6, 0.6, 0.6, 0, 0.6].</p>
+<p>You are likely to be confused about this block of codes:</p>
+<pre class="line-numbers language-cpp"><code class="language-cpp"><span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token punctuation">(</span> i <span class="token operator">></span> <span class="token number">3</span><span class="token operator">*</span><span class="token punctuation">(</span>kernel<span class="token number">-1</span><span class="token punctuation">)</span><span class="token operator">/</span><span class="token number">2</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token punctuation">(</span> j <span class="token operator">></span> <span class="token number">3</span><span class="token operator">*</span><span class="token punctuation">(</span>kernel<span class="token number">-1</span><span class="token punctuation">)</span><span class="token operator">/</span><span class="token number">2</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token punctuation">(</span> i <span class="token operator">&lt;</span> <span class="token number">767</span><span class="token operator">-</span><span class="token number">3</span><span class="token operator">*</span><span class="token punctuation">(</span>kernel<span class="token number">-1</span><span class="token punctuation">)</span><span class="token operator">/</span><span class="token number">2</span><span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token punctuation">(</span> j <span class="token operator">&lt;</span> <span class="token number">575</span><span class="token operator">-</span><span class="token number">3</span><span class="token operator">*</span><span class="token punctuation">(</span>kernel<span class="token number">-1</span><span class="token punctuation">)</span><span class="token operator">/</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>You can understand it with the image above. If the sample is too close to the edge, there are no pixels can be calculated.</p>
+<p>The last thing I have to mention is that in order to implement mean normalization, 6 color values should be divided by a particular number. Thus, all the feature values are between [0-1].</p>
+<h3 id="3-Reducing-Data-From-14-dimensional-to-10-dimensional"><a href="#3-Reducing-Data-From-14-dimensional-to-10-dimensional" class="headerlink" title="3.Reducing Data From 14-dimensional to 10-dimensional"></a><font color="#ff3399">3.Reducing Data From 14-dimensional to 10-dimensional</font></h3><p>Initially, you should use the samples with their features to calculate the covariance matrix and its eigenvectors with the formula and codes below.</p>
+<p><img src="http://ox8ixvjau.bkt.clouddn.com/blog/171216/01k788f3iA.png?imageslim" alt="mark"><br><img src="http://ox8ixvjau.bkt.clouddn.com/blog/171216/9gEHgEkcfe.png?imageslim" alt="mark"></p>
+<pre class="line-numbers language-cpp"><code class="language-cpp">CvMat<span class="token operator">*</span> pMean <span class="token operator">=</span> <span class="token function">cvCreateMat</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">14</span><span class="token punctuation">,</span> CV_32FC1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+CvMat<span class="token operator">*</span> pEigVals <span class="token operator">=</span> <span class="token function">cvCreateMat</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">14</span><span class="token punctuation">,</span> CV_32FC1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+CvMat<span class="token operator">*</span> pEigVecs <span class="token operator">=</span> <span class="token function">cvCreateMat</span><span class="token punctuation">(</span> <span class="token number">14</span><span class="token punctuation">,</span> <span class="token number">14</span><span class="token punctuation">,</span> CV_32FC1<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">cvCalcPCA</span><span class="token punctuation">(</span> points<span class="token punctuation">,</span> pMean<span class="token punctuation">,</span> pEigVals<span class="token punctuation">,</span> pEigVecs<span class="token punctuation">,</span> CV_PCA_DATA_AS_ROW <span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>U is the eigenvector which we want to obtain. In this case, pEigVecs is the matrix we need. And its dimensions are 14x14.</p>
+<p>Then you can use cvProjectPCA transform the 14-dimensional one to 10-dimensional.</p>
+<pre class="line-numbers language-cpp"><code class="language-cpp">CvMat<span class="token operator">*</span> pResult <span class="token operator">=</span> <span class="token function">cvCreateMat</span><span class="token punctuation">(</span> SAMPLE_NUMBER<span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">,</span> CV_32FC1 <span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">cvProjectPCA</span><span class="token punctuation">(</span> points<span class="token punctuation">,</span> pMean<span class="token punctuation">,</span> pEigVecs<span class="token punctuation">,</span> pResult <span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>Finally, you can get the samples with 10 features rather than 14 features.</p>
+<h2 id="The-End"><a href="#The-End" class="headerlink" title="The End"></a><font color="yellowish"><center>The End</center></font></h2>
+            </div>
+
+            <!-- Post Comments -->
+            
+    <!-- 使用 DISQUS_CLICK -->
+<div id="disqus-comment">
+    <div id="disqus_thread"></div>
+
+<!-- add animation -->
+<style>
+	.disqus_click_btn {
+            line-height: 30px;
+            margin: 0;
+            min-width: 50px;
+            padding: 0 14px;
+            display: inline-block;
+            font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+            font-size: 14px;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 0;
+            overflow: hidden;
+            will-change: box-shadow;
+            transition: box-shadow .2s cubic-bezier(.4, 0, 1, 1), background-color .2s cubic-bezier(.4, 0, .2, 1), color .2s cubic-bezier(.4, 0, .2, 1);
+            outline: 0;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+            vertical-align: middle;
+            border: 0;
+            background: rgba(158, 158, 158, .2);
+            box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .2), 0 1px 5px 0 rgba(0, 0, 0, .12);
+            color: #fff;
+            background-color: #7EC0EE;
+            text-shadow: 0
+        }
+</style>
+	
+<div class="btn_click_load" id="disqus_bt"> 
+    <button class="disqus_click_btn">点击查看评论</button>
+</div>
+
+<!--
+<script type="text/javascript">
+$('.btn_click_load').click(function() {
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'http-miccall-tech'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+
+    document.getElementById('disqus_bt').style.display = "none";
+});
+</script>
+-->
+<script type="text/javascript">
+    var disqus_config = function () {
+        this.page.url = 'http://yoursite.com/Dimensionality Reduction(PCA)/';  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = 'http://yoursite.com/Dimensionality Reduction(PCA)/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+</script>
+
+<script type="text/javascript">
+    $('.btn_click_load').click(function() {  //click to load comments
+        (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document;
+            var s = d.createElement('script');
+            s.src = '//http-miccall-tech.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', + new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+        $('.btn_click_load').css('display','none');
+    });
+</script>
+</div>
+<style>
+    #disqus-comment{
+        background-color: #eee;
+        padding: 2pc;
+    }
+</style>
+
+
+        </div>
+        <!-- Copyright 版权 start -->
+                <div id="copyright">
+            <ul>
+                <li>&copy;Powered By <a href="https://hexo.io/zh-cn/" style="border-bottom: none;">hexo</a></li>
+                <li>Design: <a href="https://evilperfectionist.github.io " style="border-bottom: none;">EvilPerfectionist</a></li>
+            </ul>
+            
+            	<span id="busuanzi_container_site_pv">2017总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+			
+        </div>
+    </div>
+</body>
+
+
+
+ 	
+</html>

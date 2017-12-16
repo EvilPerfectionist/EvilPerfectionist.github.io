@@ -61,7 +61,7 @@
 	            <a href="#s1">分类</a>
 	                    <ul class="submenu">
 	                        <li>
-	                        <a class="category-link" href="/categories/Diary/">Diary</a></li><li><a class="category-link" href="/categories/OpenCV/">OpenCV</a></li><li><a class="category-link" href="/categories/OpenCV/C/">C++</a></li><li><a class="category-link" href="/categories/Summary/">Summary</a></li><li><a class="category-link" href="/categories/Travel/">Travel</a>
+	                        <a class="category-link" href="/categories/Diary/">Diary</a></li><li><a class="category-link" href="/categories/Machine-Learning/">Machine Learning</a></li><li><a class="category-link" href="/categories/OpenCV/">OpenCV</a></li><li><a class="category-link" href="/categories/OpenCV/C/">C++</a></li><li><a class="category-link" href="/categories/Summary/">Summary</a></li><li><a class="category-link" href="/categories/Travel/">Travel</a>
 	                    </ul>
 	        </li>
 	        
@@ -276,6 +276,10 @@
      <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>The function I wanna explain here is cvGetReal2D.</p>
+<pre class="line-numbers language-cpp"><code class="language-cpp">C<span class="token operator">:</span> <span class="token keyword">double</span> <span class="token function">cvGetReal2D</span><span class="token punctuation">(</span><span class="token keyword">const</span> CvArr<span class="token operator">*</span> arr<span class="token punctuation">,</span> <span class="token keyword">int</span> idx0<span class="token punctuation">,</span> <span class="token keyword">int</span> idx1<span class="token punctuation">)</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>GetReal?D returns a specific element of single-channel 1D, 2D, 3D or nD array. If the array has multiple channels, a runtime error is raised. Note that Get?D functions can be used safely for both single-channel and multiple-channel arrays though they are a bit slower. The parameters idx0 and idx1 stands for the position of the chosen element.</p>
 
             </div>
 
