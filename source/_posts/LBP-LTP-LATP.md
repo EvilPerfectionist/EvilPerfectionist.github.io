@@ -193,3 +193,9 @@ void ComputeLATP(IplImage *img, IplImage *LATPImage_p, IplImage *LATPImage_n, in
 	 }
 }
 ```
+
+The function I wanna explain here is cvGetReal2D.
+```cpp
+C: double cvGetReal2D(const CvArr* arr, int idx0, int idx1)
+```
+GetReal?D returns a specific element of single-channel 1D, 2D, 3D or nD array. If the array has multiple channels, a runtime error is raised. Note that Get?D functions can be used safely for both single-channel and multiple-channel arrays though they are a bit slower. The parameters idx0 and idx1 stands for the position of the chosen element.
