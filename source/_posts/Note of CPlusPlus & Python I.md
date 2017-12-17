@@ -145,5 +145,180 @@ The result will be:
 
 -1 here means following. We know that a has 6 numbers, and we set the reshape row as 3, so the unspecified value is inferred to be 2. If a has 9 numbers, and we also set the reshape row as 3 and reshape column as -1 , the unspecified value is inferred to be 3.
 
+#### <Strong><font color=tomato> numpy.random.randint </font></strong>
+
+This function returns random integers from low (inclusive) to high (exclusive).
+```python
+import numpy as np
+
+x = np.random.randint(25,100,25)
+y = np.random.randint(175,255,10)
+
+X = np.random.randint(25,50,(5,2))
+Y = np.random.randint(60,85,(3,2))
+
+print(x)
+print(y)
+print(X)
+print(Y)
+```
+The result will be:
+
+```python
+[31 69 70 86 88 74 45 56 26 56 81 30 39 78 86 25 89 30 95 44 53 90 56 76 83]
+[214 195 196 219 176 251 183 251 201 189]
+[[45 29]
+ [39 36]
+ [27 49]
+ [49 32]
+ [34 33]]
+[[64 78]
+ [78 75]
+ [63 83]]
+```
+#### <Strong><font color=tomato> numpy.hstack </font></strong>
+This function takes a sequence of arrays and stack them horizontally to make a single array.
+```python
+import numpy as np
+
+a = np.array((1,2,3))
+b = np.array((2,3,4))
+c = np.hstack((a,b))
+
+x = np.array([[1],[2],[3]])
+y = np.array([[2],[3],[4]])
+z = np.hstack((x,y))
+
+print(c)
+print(z)
+```
+The result will be:
+```python
+[1 2 3 2 3 4]
+[[1 2]
+ [2 3]
+ [3 4]]
+```
+#### <Strong><font color=tomato> numpy.vstack </font></strong>
+This function takes a sequence of arrays and stack them vertically to make a single array.
+```python
+import numpy as np
+
+a = np.array((1,2,3))
+b = np.array((2,3,4))
+c = np.vstack((a,b))
+
+x = np.array([[1],[2],[3]])
+y = np.array([[2],[3],[4]])
+z = np.vstack((x,y))
+
+X = np.random.randint(25,50,(3,2))
+Y = np.random.randint(60,85,(3,2))
+Z = np.vstack((X,Y))
+
+print(c)
+print(z)
+print(Z)
+```
+The result will be:
+```python
+[[1 2 3]
+ [2 3 4]]
+[[1]
+ [2]
+ [3]
+ [2]
+ [3]
+ [4]]
+[[30 42]
+ [30 25]
+ [33 32]
+ [74 64]
+ [69 64]
+ [67 61]]
+```
+#### <Strong><font color=tomato> numpy.ravel </font></strong>
+This function returns a contiguous flattened array.
+```python
+import numpy as np
+x = np.array([[1, 2, 3], [4, 5, 6]])
+print(np.ravel(x))
+```
+The result will be:
+```python
+[1 2 3 4 5 6]
+```
+#### <Strong><font color=tomato> Array Calculation </font></strong>
+```python
+import numpy as np
+
+z = np.array([[1, 2], [3, 4], [5, 6]])
+print(z)
+print(z[0])
+print(z[[0]])
+print(z[[[0]]])
+print(z[[[[0]]]])
+print(z[[[[[0]]]]])
+
+x = np.arange(3)
+print(x)
+print(x[0])
+print(x[[0]])
+print(x[[[0]]])
+print(x[[[[0]]]])
+print(x[[[[[0]]]]])
+print(x[[True, True, False]])
+
+label =  np.array([0, 0, 1])
+labels =  np.array([[0], [0], [1]])
+a = z[label==0]
+b = z[labels.ravel()==0]
+x = x.reshape((3, 1))
+c = x[label==0]
+d = x[labels==0]
+print([0]==[0])
+print(label)
+print(labels)
+print(a)
+print(b)
+print(c)
+print(d)
+print(label==0)
+print(labels==0)
+```
+The result will be:
+```python
+[[1 2]
+ [3 4]
+ [5 6]]
+[1 2]
+[[1 2]]
+[[1 2]]
+[[[1 2]]]
+[[[[1 2]]]]
+[0 1 2]
+0
+[0]
+[0]
+[[0]]
+[[[0]]]
+[0 1]
+True
+[0 0 1]
+[[0]
+ [0]
+ [1]]
+[[1 2]
+ [3 4]]
+[[1 2]
+ [3 4]]
+[[0]
+ [1]]
+[0 1]
+[ True  True False]
+[[ True]
+ [ True]
+ [False]]
+```
 
 ## <font color=yellowish><center>The End</center> ##
