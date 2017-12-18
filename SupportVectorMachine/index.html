@@ -1,0 +1,292 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<link rel="bookmark"  type="image/x-icon"  href="/img/Mein-Logo.png"/>
+	 <link rel="shortcut icon" href="/img/Mein-Logo.png">
+	
+			
+    <title>
+    Learn in Life
+    </title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="/css/mic_main.css" />
+    <link rel="stylesheet" href="/css/dropdownMenu.css" />
+    
+    	<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+	
+    <noscript>
+        <link rel="stylesheet" href="/css/noscript.css" />
+    </noscript>
+
+			    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery.scrollex.min.js"></script>
+    <script src="/js/jquery.scrolly.min.js"></script>
+    <script src="/js/skel.min.js"></script>
+    <script src="/js/util.js"></script>
+    <script src="/js/main.js"></script>
+	
+<link rel="stylesheet" href="/css/prism-okaidia.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+    
+		
+<!-- Layouts -->
+
+
+
+<!--  代码渲染  -->
+<link rel="stylesheet" href="/css/prism_coy.css" />
+<link rel="stylesheet" href="/css/typo.css" />
+<!-- 文章页 -->
+<body class="is-loading">
+    <!-- Wrapper 外包 s-->
+    <div id="wrapper" class="fade-in">
+        <!-- Intro 头部显示 s -->
+        <!-- Intro 头部显示 e -->
+        <!-- Header 头部logo start -->
+        <header id="header">
+    <a href="/" class="logo">EvilPerfectionist</a>
+</header>
+        <!-- Nav 导航条 start -->
+        <nav id="nav" class="special" >
+            <ul class="menu links" >
+			<!-- Homepage  主页  --> 
+			<li >
+	            <a href="/" rel="nofollow">主页</a>
+	        </li>
+			<!-- categories_name  分类   --> 
+	        
+	        <li class="active">
+	            <a href="#s1">分类</a>
+	                    <ul class="submenu">
+	                        <li>
+	                        <a class="category-link" href="/categories/Diary/">Diary</a></li><li><a class="category-link" href="/categories/Machine-Learning/">Machine Learning</a></li><li><a class="category-link" href="/categories/Machine-Learning/OpenCV/">OpenCV</a></li><li><a class="category-link" href="/categories/OpenCV/">OpenCV</a></li><li><a class="category-link" href="/categories/OpenCV/C/">C++</a></li><li><a class="category-link" href="/categories/Summary/">Summary</a></li><li><a class="category-link" href="/categories/Travel/">Travel</a>
+	                    </ul>
+	        </li>
+	        
+	        <!-- archives  归档   --> 
+	        
+	        
+		        <!-- Pages 自定义   -->
+		        
+		        <li>
+		            <a href="/about/" title="简历">
+		                简历
+		            </a>
+		        </li>
+		        
+		        <li>
+		            <a href="/group/" title="团队">
+		                团队
+		            </a>
+		        </li>
+		        
+		        <li>
+		            <a href="/gallery/" title="图库">
+		                图库
+		            </a>
+		        </li>
+		        
+		        <li>
+		            <a href="/tag/" title="标签">
+		                标签
+		            </a>
+		        </li>
+		        
+
+
+            </ul>
+            <!-- icons 图标   -->
+			<ul class="icons">
+		            
+		                <li><a href="https://github.com/EvilPerfectionist" class="icon fa-github"><span class="label">GitHub</span></a></li>
+		            
+		            
+		            
+		            
+			</ul>
+</nav>
+
+        <div id="main" >
+            <div class ="post_page_title_img" style="height: 25rem;background-image: url(http://ox8ixvjau.bkt.clouddn.com/blog/171218/BFgd2ijDJ2.jpg);background-position: center; background-repeat:no-repeat; background-size:cover;-moz-background-size:cover;overflow:hidden;" >
+                <a href="#" style="padding: 4rem 4rem 2rem 4rem ;"><h2 >Support Vector Machine Algorithm (SVM)</h2></a>
+            </div>
+            <!-- Post -->
+            <div class="typo" style="padding: 3rem;">
+                <h2 id="Preface"><a href="#Preface" class="headerlink" title=" Preface "></a><font color="#0099ff"><center> Preface </center></font></h2><p>Support Vector Machine is a Machine Learning algorithm.</p>
+<h2 id="Optical-Character-Recognition-OCR-with-SVM-and-HOG"><a href="#Optical-Character-Recognition-OCR-with-SVM-and-HOG" class="headerlink" title=" Optical Character Recognition (OCR) with SVM and HOG "></a><font color="red"><center> Optical Character Recognition (OCR) with SVM and HOG </center></font></h2><p>I follow the instructions from <a href="https://www.learnopencv.com/handwritten-digits-classification-an-opencv-c-python-tutorial/" target="_blank" rel="noopener"><font color="cyan">this post.</font></a> You can download the codes from his github account. In order to recognize handwritten digits, you should have large training samples, may be thousands. So the author makes a useful image. It contains 5000 images in all — 500 images of each digit. Each image is 20×20 grayscale with a black background.</p>
+<p><img src="http://ox8ixvjau.bkt.clouddn.com/blog/171218/fhj120DH07.png?imageslim" alt="mark"><br>So the first step we should do is to load the image and use 4500 of these digits for training and use the remaining 500 for testing the performance of the algorithm.</p>
+<pre class="line-numbers language-python"><code class="language-python">SZ <span class="token operator">=</span> <span class="token number">20</span>
+CLASS_N <span class="token operator">=</span> <span class="token number">10</span>
+<span class="token keyword">def</span> <span class="token function">split2d</span><span class="token punctuation">(</span>img<span class="token punctuation">,</span> cell_size<span class="token punctuation">,</span> flatten<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    h<span class="token punctuation">,</span> w <span class="token operator">=</span> img<span class="token punctuation">.</span>shape<span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token number">2</span><span class="token punctuation">]</span>
+    sx<span class="token punctuation">,</span> sy <span class="token operator">=</span> cell_size
+    cells <span class="token operator">=</span> <span class="token punctuation">[</span>np<span class="token punctuation">.</span>hsplit<span class="token punctuation">(</span>row<span class="token punctuation">,</span> w<span class="token operator">//</span>sx<span class="token punctuation">)</span> <span class="token keyword">for</span> row <span class="token keyword">in</span> np<span class="token punctuation">.</span>vsplit<span class="token punctuation">(</span>img<span class="token punctuation">,</span> h<span class="token operator">//</span>sy<span class="token punctuation">)</span><span class="token punctuation">]</span>
+    cells <span class="token operator">=</span> np<span class="token punctuation">.</span>array<span class="token punctuation">(</span>cells<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> flatten<span class="token punctuation">:</span>
+        cells <span class="token operator">=</span> cells<span class="token punctuation">.</span>reshape<span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> sy<span class="token punctuation">,</span> sx<span class="token punctuation">)</span>
+    <span class="token keyword">return</span> cells
+
+<span class="token keyword">def</span> <span class="token function">load_digits</span><span class="token punctuation">(</span>fn<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    digits_img <span class="token operator">=</span> cv2<span class="token punctuation">.</span>imread<span class="token punctuation">(</span>fn<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span>
+    digits <span class="token operator">=</span> split2d<span class="token punctuation">(</span>digits_img<span class="token punctuation">,</span> <span class="token punctuation">(</span>SZ<span class="token punctuation">,</span> SZ<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    labels <span class="token operator">=</span> np<span class="token punctuation">.</span>repeat<span class="token punctuation">(</span>np<span class="token punctuation">.</span>arange<span class="token punctuation">(</span>CLASS_N<span class="token punctuation">)</span><span class="token punctuation">,</span> len<span class="token punctuation">(</span>digits<span class="token punctuation">)</span><span class="token operator">/</span>CLASS_N<span class="token punctuation">)</span>
+    <span class="token keyword">return</span> digits<span class="token punctuation">,</span> labels
+digits<span class="token punctuation">,</span> labels <span class="token operator">=</span> load_digits<span class="token punctuation">(</span><span class="token string">'digits.png'</span><span class="token punctuation">)</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>The result of print(img.shape) will be (1000, 2000).</p>
+<pre class="line-numbers language-cpp"><code class="language-cpp">a <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">,</span><span class="token number">5</span><span class="token punctuation">]</span>
+b <span class="token operator">=</span> a<span class="token punctuation">[</span><span class="token operator">:</span><span class="token number">4</span><span class="token punctuation">]</span>
+<span class="token function">print</span><span class="token punctuation">(</span>b<span class="token punctuation">)</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>The result is [1,2,3,4], so h=1000, w=2000.</p>
+<p>Therefore, this block of codes separates the picture into 20x20 small pictures. Then set label 0 on pictures including 0, label 1 on pictures including 1, label 2 on pictures including 2 etc.</p>
+<p>The next step is to shuffle or permute the data.</p>
+<pre class="line-numbers language-python"><code class="language-python">rand <span class="token operator">=</span> np<span class="token punctuation">.</span>random<span class="token punctuation">.</span>RandomState<span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span>
+shuffle <span class="token operator">=</span> rand<span class="token punctuation">.</span>permutation<span class="token punctuation">(</span>len<span class="token punctuation">(</span>digits<span class="token punctuation">)</span><span class="token punctuation">)</span>
+digits<span class="token punctuation">,</span> labels <span class="token operator">=</span> digits<span class="token punctuation">[</span>shuffle<span class="token punctuation">]</span><span class="token punctuation">,</span> labels<span class="token punctuation">[</span>shuffle<span class="token punctuation">]</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>An obvious variation in writing among people is the slant of their writing. Some writers have a right or forward slant where the digits are slanted forward, some have a backward or left slant, and some have no slant at all. We can help the algorithm quite a bit by fixing this vertical slant so it does not have to learn this variation of the digits. So, we use the codes below to get the deskewed (fixed) version of digits.</p>
+<pre class="line-numbers language-python"><code class="language-python">ef deskew<span class="token punctuation">(</span>img<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    m <span class="token operator">=</span> cv2<span class="token punctuation">.</span>moments<span class="token punctuation">(</span>img<span class="token punctuation">)</span>
+    <span class="token keyword">if</span> abs<span class="token punctuation">(</span>m<span class="token punctuation">[</span><span class="token string">'mu02'</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">&lt;</span> <span class="token number">1e</span><span class="token operator">-</span><span class="token number">2</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> img<span class="token punctuation">.</span>copy<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    skew <span class="token operator">=</span> m<span class="token punctuation">[</span><span class="token string">'mu11'</span><span class="token punctuation">]</span><span class="token operator">/</span>m<span class="token punctuation">[</span><span class="token string">'mu02'</span><span class="token punctuation">]</span>
+    M <span class="token operator">=</span> np<span class="token punctuation">.</span>float32<span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> skew<span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">0.5</span><span class="token operator">*</span>SZ<span class="token operator">*</span>skew<span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+    img <span class="token operator">=</span> cv2<span class="token punctuation">.</span>warpAffine<span class="token punctuation">(</span>img<span class="token punctuation">,</span> M<span class="token punctuation">,</span> <span class="token punctuation">(</span>SZ<span class="token punctuation">,</span> SZ<span class="token punctuation">)</span><span class="token punctuation">,</span> flags<span class="token operator">=</span>cv2<span class="token punctuation">.</span>WARP_INVERSE_MAP <span class="token operator">|</span> cv2<span class="token punctuation">.</span>INTER_LINEAR<span class="token punctuation">)</span>
+    <span class="token keyword">return</span> img
+digits_deskewed <span class="token operator">=</span> list<span class="token punctuation">(</span>map<span class="token punctuation">(</span>deskew<span class="token punctuation">,</span> digits<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>The process of getting the deskewed digits is a little complex. Besides, there are some mathematical knowledge you should know. Therefore, I do not want to tell the detail here. Instead, it is enough that you just know the function of this block of code.</p>
+<p>There is one function I wanna mention here—map(), in this case, all members of digits will be implemented with funtion deskew.</p>
+<p>The next step is to calculate the Histogram of Oriented Gradients (HOG) descriptor.</p>
+<pre class="line-numbers language-python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">get_hog</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">:</span>
+    winSize <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">20</span><span class="token punctuation">,</span><span class="token number">20</span><span class="token punctuation">)</span>
+    blockSize <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">8</span><span class="token punctuation">,</span><span class="token number">8</span><span class="token punctuation">)</span>
+    blockStride <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">)</span>
+    cellSize <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token number">8</span><span class="token punctuation">,</span><span class="token number">8</span><span class="token punctuation">)</span>
+    nbins <span class="token operator">=</span> <span class="token number">9</span>
+    derivAperture <span class="token operator">=</span> <span class="token number">1</span>
+    winSigma <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">.</span>
+    histogramNormType <span class="token operator">=</span> <span class="token number">0</span>
+    L2HysThreshold <span class="token operator">=</span> <span class="token number">0.2</span>
+    gammaCorrection <span class="token operator">=</span> <span class="token number">1</span>
+    nlevels <span class="token operator">=</span> <span class="token number">64</span>
+    signedGradient <span class="token operator">=</span> <span class="token boolean">True</span>
+
+    hog <span class="token operator">=</span> cv2<span class="token punctuation">.</span>HOGDescriptor<span class="token punctuation">(</span>winSize<span class="token punctuation">,</span>blockSize<span class="token punctuation">,</span>blockStride<span class="token punctuation">,</span>cellSize<span class="token punctuation">,</span>nbins<span class="token punctuation">,</span>derivAperture<span class="token punctuation">,</span>winSigma<span class="token punctuation">,</span>histogramNormType<span class="token punctuation">,</span>L2HysThreshold<span class="token punctuation">,</span>gammaCorrection<span class="token punctuation">,</span>nlevels<span class="token punctuation">,</span> signedGradient<span class="token punctuation">)</span>
+
+    <span class="token keyword">return</span> hog
+hog <span class="token operator">=</span> get_hog<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+hog_descriptors <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+<span class="token keyword">for</span> img <span class="token keyword">in</span> digits_deskewed<span class="token punctuation">:</span>
+    hog_descriptors<span class="token punctuation">.</span>append<span class="token punctuation">(</span>hog<span class="token punctuation">.</span>compute<span class="token punctuation">(</span>img<span class="token punctuation">)</span><span class="token punctuation">)</span>
+hog_descriptors <span class="token operator">=</span> np<span class="token punctuation">.</span>squeeze<span class="token punctuation">(</span>hog_descriptors<span class="token punctuation">)</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+            </div>
+
+            <!-- Post Comments -->
+            
+    <!-- 使用 DISQUS_CLICK -->
+<div id="disqus-comment">
+    <div id="disqus_thread"></div>
+
+<!-- add animation -->
+<style>
+	.disqus_click_btn {
+            line-height: 30px;
+            margin: 0;
+            min-width: 50px;
+            padding: 0 14px;
+            display: inline-block;
+            font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+            font-size: 14px;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 0;
+            overflow: hidden;
+            will-change: box-shadow;
+            transition: box-shadow .2s cubic-bezier(.4, 0, 1, 1), background-color .2s cubic-bezier(.4, 0, .2, 1), color .2s cubic-bezier(.4, 0, .2, 1);
+            outline: 0;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+            vertical-align: middle;
+            border: 0;
+            background: rgba(158, 158, 158, .2);
+            box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .2), 0 1px 5px 0 rgba(0, 0, 0, .12);
+            color: #fff;
+            background-color: #7EC0EE;
+            text-shadow: 0
+        }
+</style>
+	
+<div class="btn_click_load" id="disqus_bt"> 
+    <button class="disqus_click_btn">点击查看评论</button>
+</div>
+
+<!--
+<script type="text/javascript">
+$('.btn_click_load').click(function() {
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'http-miccall-tech'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+
+    document.getElementById('disqus_bt').style.display = "none";
+});
+</script>
+-->
+<script type="text/javascript">
+    var disqus_config = function () {
+        this.page.url = 'http://yoursite.com/SupportVectorMachine/';  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = 'http://yoursite.com/SupportVectorMachine/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+</script>
+
+<script type="text/javascript">
+    $('.btn_click_load').click(function() {  //click to load comments
+        (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document;
+            var s = d.createElement('script');
+            s.src = '//http-miccall-tech.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', + new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+        $('.btn_click_load').css('display','none');
+    });
+</script>
+</div>
+<style>
+    #disqus-comment{
+        background-color: #eee;
+        padding: 2pc;
+    }
+</style>
+
+
+        </div>
+        <!-- Copyright 版权 start -->
+                <div id="copyright">
+            <ul>
+                <li>&copy;Powered By <a href="https://hexo.io/zh-cn/" style="border-bottom: none;">hexo</a></li>
+                <li>Design: <a href="https://evilperfectionist.github.io " style="border-bottom: none;">EvilPerfectionist</a></li>
+            </ul>
+            
+            	<span id="busuanzi_container_site_pv">2017总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+			
+        </div>
+    </div>
+</body>
+
+
+
+ 	
+</html>
