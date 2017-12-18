@@ -320,3 +320,5 @@ In this case, pt will be given a member of samples. In fact, we initiate points 
 Then we use clusters->data.i[i] to obtain to index and draw the small colorful circle with cvCircle.
 
 The parameter cvPointFrom32f(pt) means the enter of the circle and 2 is the radius of the circle.
+
+## <font color=yellowish><center>The End</center> ##
