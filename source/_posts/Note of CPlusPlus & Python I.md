@@ -315,10 +315,118 @@ True
 [[0]
  [1]]
 [0 1]
-[ True  True False]
+[ True True False]
 [[ True]
  [ True]
  [False]]
 ```
+#### <Strong><font color=tomato> numpy.split </font></strong>
+This function splits an array into multiple sub-arrays.
+```python
+import numpy as np
 
+x = np.arange(9.0)
+y = np.split(x, 3)
+z = np.split(x, [3, 5, 6, 10])
+
+print(y)
+print(z)
+```
+The result will be:
+```python
+[array([ 0.,  1.,  2.]), array([ 3.,  4.,  5.]), array([ 6.,  7.,  8.])]
+[array([ 0.,  1.,  2.]), array([ 3.,  4.]), array([ 5.]), array([ 6.,  7.,  8.]), array([], dtype=float64)]
+```
+
+#### <Strong><font color=tomato> numpy.hsplit </font></strong>
+```python
+import numpy as np
+
+x = np.arange(16.0).reshape(4, 4)
+y = np.hsplit(x, 2)
+z = np.hsplit(x, np.array([3, 6]))
+print(y)
+print(z)
+```
+The result will be:
+```python
+[array([[  0.,   1.],
+       [  4.,   5.],
+       [  8.,   9.],
+       [ 12.,  13.]]),
+array([[  2.,   3.],
+       [  6.,   7.],
+       [ 10.,  11.],
+       [ 14.,  15.]])]
+
+[array([[  0.,   1.,   2.],
+        [  4.,   5.,   6.],
+        [  8.,   9.,  10.],
+        [ 12.,  13.,  14.]]),
+ array([[  3.],
+        [  7.],
+        [ 11.],
+        [ 15.]]),
+ array([], shape=(4, 0), dtype=float64)]
+```
+#### <Strong><font color=tomato> numpy.repeat </font></strong>
+This function repeats elements of an array.
+
+![mark](http://ox8ixvjau.bkt.clouddn.com/blog/171218/a6JkB17A49.png?imageslim)
+
+#### <Strong><font color=tomato> numpy.random.RandomState </font></strong>
+This function generates a container for the Mersenne Twister pseudo-random number generator.
+```python
+import numpy as np
+
+rng = np.random.RandomState(42)
+print(rng.randn(4))
+rng = np.random.RandomState(42)
+print(rng.randn(5))
+rng = np.random.RandomState(78)
+print(rng.randn(3))
+```
+The result will be:
+```python
+[ 0.49671415 -0.1382643   0.64768854  1.52302986]
+[ 0.49671415 -0.1382643   0.64768854  1.52302986 -0.23415337]
+[ 0.12204614 -0.30471827  0.57797539]
+```
+This indicates that there exists a list of fake numbers and the parameter of np.random.RandomState determines where the generated random numbers begin. As you can see, if I do no change the value of the parameter, the first number of the random number list is the same.
+
+#### <Strong><font color=tomato> numpy.random.permutation </font></strong>
+This function randomly permutes a sequence, or return a permuted range.
+
+![mark](http://ox8ixvjau.bkt.clouddn.com/blog/171218/9633AL9af5.png?imageslim)
+
+#### <Strong><font color=tomato> numpy.squeeze </font></strong>
+This function removes single-dimensional entries from the shape of an array.
+```python
+import numpy as np
+
+x = np.array([[[0], [1], [2]]])
+y = np.squeeze(x)
+z = np.squeeze(x, axis=0)
+a = np.squeeze(x, axis=2)
+print(x.shape)
+print(y)
+print(y.shape)
+print(z)
+print(z.shape)
+print(a)
+print(a.shape)
+```
+The result will be:
+```python
+(1, 3, 1)
+[0 1 2]
+(3,)
+[[0]
+ [1]
+ [2]]
+(3, 1)
+[[0 1 2]]
+(1, 3)
+```
+As you can see, this function can remove the all one-dimensional [] while remove the specific one-dimensional [] with the parameter of axis. You can not remove a multidimensional [] with this function so you can not set axis = 2 here.
 ## <font color=yellowish><center>The End</center> ##
