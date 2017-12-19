@@ -96,3 +96,87 @@ for img in digits_deskewed:
     hog_descriptors.append(hog.compute(img))
 hog_descriptors = np.squeeze(hog_descriptors)
 ```
+
+Then we will split data into training (90%) and test set (10%):
+```python
+train_n=int(0.9*len(hog_descriptors))
+digits_train, digits_test = np.split(digits_deskewed, [train_n])
+hog_descriptors_train, hog_descriptors_test = np.split(hog_descriptors, [train_n])
+labels_train, labels_test = np.split(labels, [train_n])
+```
+
+After that we will use the generated HOG vectors to train our SVM algorithm.
+```python
+def svmInit(C=12.5, gamma=0.50625):
+  model = cv2.ml.SVM_create()
+  model.setGamma(gamma)
+  model.setC(C)
+  model.setKernel(cv2.ml.SVM_RBF)
+  model.setType(cv2.ml.SVM_C_SVC)
+  return model
+def svmTrain(model, samples, responses):
+  model.train(samples, cv2.ml.ROW_SAMPLE, responses)
+  return model
+model = svmInit()
+svmTrain(model, hog_descriptors_train, labels_train)
+```
+After training our algorithm successfully, we will evaluate our SVM algorithm.
+```python
+def svmPredict(model, samples):
+  return model.predict(samples)[1].ravel()
+def svmEvaluate(model, digits, samples, labels):
+    predictions = svmPredict(model, samples)
+    accuracy = (labels == predictions).mean()
+    print('Percentage Accuracy: %.2f %%' % (accuracy*100))
+
+    confusion = np.zeros((10, 10), np.int32)
+    for i, j in zip(labels, predictions):
+        confusion[int(i), int(j)] += 1
+    print('confusion matrix:')
+    print(confusion)
+
+    vis = []
+    for img, flag in zip(digits, predictions == labels):
+        img = cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
+        if not flag:
+            img[...,:2] = 0
+
+        vis.append(img)
+    return mosaic(25, vis)
+vis = svmEvaluate(model, digits_test, hog_descriptors_test, labels_test)
+```
+I use print(model.predict(samples)[1]) to know that the return values are the prediction of the test data labels. So then we can use (labels == predictions) to know whether the prediction result is right or wrong and then calculate its accuracy.
+
+You may be curious that which digits the algorithm failed to recognize correctly. So we build a matrix called confusion. Then we add numbers according to the coordinates(labels, predictions). If all the digits are recognized correctly, then the numbers will only be added on diagonal line since the values of labels are the same to predictions. Besides, we can also know how the number was mistakenly recognized, such as 1->7, 8->5. Below is the example.
+```python
+[[52  0  0  0  0  0  0  0  0  0]
+ [ 0 43  2  0  0  0  0  0  0  0]
+ [ 0  0 61  0  0  0  0  1  0  0]
+ [ 0  0  0 49  0  0  0  0  0  0]
+ [ 0  0  0  0 44  0  0  0  0  0]
+ [ 0  0  0  0  0 49  0  0  0  0]
+ [ 0  0  0  0  0  0 46  0  0  0]
+ [ 0  0  0  0  0  0  0 50  1  0]
+ [ 0  0  0  0  0  1  0  0 50  0]
+ [ 0  0  0  0  0  0  0  0  0 51]]
+```
+As we can see in the matrix, there are 5 numbers are recognized incorrectly. There are two 1 numbers are recognized as 2, one 2 number as 7, one 7 number as 8, one 8 number as 5.
+
+Then we print the wrong numbers in red using this block of codes:
+```python
+vis = []
+for img, flag in zip(digits, predictions == labels):
+    img = cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
+    if not flag:
+        img[...,:2] = 0
+
+    vis.append(img)
+return mosaic(25, vis)
+```
+The result will be:
+
+![mark](http://ox8ixvjau.bkt.clouddn.com/blog/171219/DKLLf0D9D6.jpg?imageslim)
+
+If you change the mosaic(25, vis) to mosaic(20, vis), the result will be the image below since the function mosaic makes a grid from images and the first parameter stands for the number of grid columns.
+
+![mark](http://ox8ixvjau.bkt.clouddn.com/blog/171219/mECBg02E2J.jpg?imageslim)
